@@ -1,0 +1,9 @@
+{
+  "parent": "mindustry:custom/force-projector",
+  "textures": {
+    "all": "mindustry:blocks/force-projector",
+    "particle": "mindustry:blocks/force-projector",
+    "0": "mindustry:blocks/force-projector"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,13 @@
+newmtl m_5f5fb25e-a618-8a06-f904-c19bf08ec998
+Ka 0.0 0.0 0.0
+Kd 0.0 0.0 0.0
+Ks 0.0 0.0 0.0
+map_Kd mindustry:blocks/copper_ore1
+Ns 100.0
+d 1.0
+newmtl none
+Ka 0.0 0.0 0.0
+Kd 0.0 0.0 0.0
+Ks 0.0 0.0 0.0
+Ns 100.0
+d 1.0

@@ -1,0 +1,9 @@
+{
+  "parent": "mindustry:custom/copper_ore",
+  "textures": {
+    "all": "mindustry:blocks/copper_ore1",
+    "particle": "mindustry:blocks/copper_ore1",
+    "0": "mindustry:blocks/wei_biao_ti_-1"
+  },
+  "render_type": "solid"
+}

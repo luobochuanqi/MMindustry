@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "mindustry:blocks/silicon-smelter",
+    "up": "mindustry:blocks/silicon-smelter",
+    "north": "mindustry:blocks/silicon-smelter",
+    "east": "mindustry:blocks/silicon-smelter",
+    "south": "mindustry:blocks/silicon-smelter",
+    "west": "mindustry:blocks/silicon-smelter",
+    "particle": "mindustry:blocks/silicon-smelter"
+  },
+  "render_type": "solid"
+}

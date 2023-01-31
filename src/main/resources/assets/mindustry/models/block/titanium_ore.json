@@ -1,0 +1,9 @@
+{
+  "parent": "mindustry:custom/titanium_ore",
+  "textures": {
+    "all": "mindustry:blocks/titanium-wall",
+    "particle": "mindustry:blocks/titanium-wall",
+    "0": "mindustry:blocks/map5"
+  },
+  "render_type": "solid"
+}

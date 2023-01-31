@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "mindustry:block/conveyor_0"
+    },
+    "facing=east": {
+      "model": "mindustry:block/conveyor_0",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "mindustry:block/conveyor_0",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "mindustry:block/conveyor_0",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "mindustry:copper"
+    },
+    "1": {
+      "item": "mindustry:copper"
+    },
+    "2": {
+      "item": "mindustry:copper"
+    },
+    "3": {
+      "item": "mindustry:copper"
+    },
+    "4": {
+      "item": "mindustry:copper"
+    },
+    "5": {
+      "item": "mindustry:copper"
+    },
+    "6": {
+      "item": "mindustry:copper"
+    },
+    "7": {
+      "item": "mindustry:copper"
+    },
+    "8": {
+      "item": "mindustry:copper"
+    }
+  },
+  "result": {
+    "item": "mindustry:copper_block",
+    "count": 1
+  }
+}

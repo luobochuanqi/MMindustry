@@ -1,0 +1,9 @@
+{
+  "parent": "mindustry:custom/scrap_ore",
+  "textures": {
+    "all": "mindustry:blocks/copper_ore1",
+    "particle": "mindustry:blocks/copper_ore1",
+    "0": "mindustry:blocks/map4"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "mindustry:blocks/thorium-wall-large",
+    "up": "mindustry:blocks/thorium-wall-large",
+    "north": "mindustry:blocks/thorium-wall-large",
+    "east": "mindustry:blocks/thorium-wall-large",
+    "south": "mindustry:blocks/thorium-wall-large",
+    "west": "mindustry:blocks/thorium-wall-large",
+    "particle": "mindustry:blocks/thorium-wall-large"
+  },
+  "render_type": "solid"
+}

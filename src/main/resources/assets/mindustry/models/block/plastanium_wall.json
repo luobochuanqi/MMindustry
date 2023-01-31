@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "mindustry:blocks/plastanium-wall-large",
+    "up": "mindustry:blocks/plastanium-wall-large",
+    "north": "mindustry:blocks/plastanium-wall-large",
+    "east": "mindustry:blocks/plastanium-wall-large",
+    "south": "mindustry:blocks/plastanium-wall-large",
+    "west": "mindustry:blocks/plastanium-wall-large",
+    "particle": "mindustry:blocks/plastanium-wall-large"
+  },
+  "render_type": "solid"
+}

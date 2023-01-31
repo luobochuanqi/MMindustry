@@ -1,0 +1,20 @@
+{
+  "drill": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "mindustry:drill",
+        "stream": false
+      }
+    ]
+  },
+  "shoot": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "mindustry:shoot",
+        "stream": false
+      }
+    ]
+  }
+}
