@@ -4,26 +4,26 @@ license="GNU General Public License version 3 (GPLv3)"
 
 [[mods]]
 modId="mindustry"
-version="0.2.1"
 displayName="mindustry"
-credits="Created using mod maker MCreator - https://mcreator.net/about"
-displayURL="https://mcreator.net"
+credits=""
+version="${file.jarVersion}" #managed by "build.gradle"
+displayURL="https://???.net"
+description='''
+A Minecraft mod about the game 《Mindustry》
+'''
 logoFile="logo.png"
-authors="shan_luan_"
+authors="shan_luan_,luobochuanqi"
 
 [[dependencies.mindustry]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.2]"
+    versionRange="[1.19.2,1.20)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.mindustry]]
     modId="forge"
     mandatory=true
-    versionRange="[43.1.7,)"
+    versionRange="[43,)"
     ordering="NONE"
     side="BOTH"
-
-
-
