@@ -1,0 +1,9 @@
+{
+  "parent": "mindustry:custom/coal_ore",
+  "textures": {
+    "all": "mindustry:blocks/coal_ore",
+    "particle": "mindustry:blocks/coal_ore",
+    "1": "mindustry:blocks/map3"
+  },
+  "render_type": "solid"
+}

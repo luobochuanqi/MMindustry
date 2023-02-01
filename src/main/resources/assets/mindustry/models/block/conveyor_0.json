@@ -1,0 +1,9 @@
+{
+  "parent": "mindustry:custom/conveyor-0-0",
+  "textures": {
+    "all": "mindustry:blocks/conveyor0",
+    "particle": "mindustry:blocks/conveyor0",
+    "0": "mindustry:blocks/conveyor0"
+  },
+  "render_type": "cutout"
+}

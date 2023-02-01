@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "mindustry:blocks/graphite-press",
+    "up": "mindustry:blocks/graphite-press",
+    "north": "mindustry:blocks/graphite-press",
+    "east": "mindustry:blocks/graphite-press",
+    "south": "mindustry:blocks/graphite-press",
+    "west": "mindustry:blocks/graphite-press",
+    "particle": "mindustry:blocks/graphite-press"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "mindustry:blocks/pneumatic_drill",
+    "up": "mindustry:blocks/pneumatic_drill",
+    "north": "mindustry:blocks/pneumatic_drill",
+    "east": "mindustry:blocks/pneumatic_drill",
+    "south": "mindustry:blocks/pneumatic_drill",
+    "west": "mindustry:blocks/pneumatic_drill",
+    "particle": "mindustry:blocks/pneumatic_drill"
+  },
+  "render_type": "solid"
+}

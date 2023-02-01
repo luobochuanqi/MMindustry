@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "mindustry:blocks/melter",
+    "up": "mindustry:blocks/melter",
+    "north": "mindustry:blocks/melter",
+    "east": "mindustry:blocks/melter",
+    "south": "mindustry:blocks/melter",
+    "west": "mindustry:blocks/melter",
+    "particle": "mindustry:blocks/melter"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "mindustry:blocks/copper_wall",
+    "particle": "mindustry:blocks/copper_wall"
+  },
+  "render_type": "solid"
+}

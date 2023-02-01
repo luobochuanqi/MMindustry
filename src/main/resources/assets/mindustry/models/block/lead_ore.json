@@ -1,0 +1,9 @@
+{
+  "parent": "mindustry:custom/lead_ore",
+  "textures": {
+    "all": "mindustry:blocks/carbide-wall",
+    "particle": "mindustry:blocks/carbide-wall",
+    "0": "mindustry:blocks/map2"
+  },
+  "render_type": "solid"
+}

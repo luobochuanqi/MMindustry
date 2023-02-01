@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "mindustry:blocks/titanium-wall-large",
+    "up": "mindustry:blocks/titanium-wall-large",
+    "north": "mindustry:blocks/titanium-wall-large",
+    "east": "mindustry:blocks/titanium-wall-large",
+    "south": "mindustry:blocks/titanium-wall-large",
+    "west": "mindustry:blocks/titanium-wall-large",
+    "particle": "mindustry:blocks/titanium-wall-large"
+  },
+  "render_type": "solid"
+}

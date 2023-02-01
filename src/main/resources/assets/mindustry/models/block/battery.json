@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "mindustry:blocks/battery",
+    "up": "mindustry:blocks/battery",
+    "north": "mindustry:blocks/battery",
+    "east": "mindustry:blocks/battery",
+    "south": "mindustry:blocks/battery",
+    "west": "mindustry:blocks/battery",
+    "particle": "mindustry:blocks/battery"
+  },
+  "render_type": "solid"
+}
