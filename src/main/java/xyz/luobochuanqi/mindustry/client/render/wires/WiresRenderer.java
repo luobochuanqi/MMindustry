@@ -12,6 +12,7 @@ import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import xyz.luobochuanqi.mindustry.common.init.TileEntityRegister;
 
 public class WiresRenderer {
 
@@ -32,6 +33,15 @@ public class WiresRenderer {
                 .endVertex();
     }
 
+    private static void powerLine(IVertexBuilder builder, Matrix4f positionMatrix, BlockPos pos1, BlockPos pos2, float dx1, float dy1, float dz1, float dx2, float dy2, float dz2) {
+        builder.vertex(positionMatrix, pos1.getX()+dx1, pos1.getY()+dy1, pos1.getZ()+dz1)
+                .color(1.0f, 0.0f, 0.0f, 1.0f)
+                .endVertex();
+        builder.vertex(positionMatrix, pos2.getX()+dx2, pos2.getY()+dy2, pos2.getZ()+dz2)
+                .color(1.0f, 0.0f, 0.0f, 1.0f)
+                .endVertex();
+    }
+
     private static void locateTileEntities(ClientPlayerEntity player, MatrixStack matrixStack) {
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().renderBuffers().bufferSource();
         IVertexBuilder builder = buffer.getBuffer(WiresRenderType.OVERLAY_LINES);
@@ -49,26 +59,32 @@ public class WiresRenderer {
 
         Matrix4f matrix = matrixStack.last().pose();
 
-        BlockPos.Mutable pos = new BlockPos.Mutable();
+        BlockPos.Mutable pos1 = new BlockPos.Mutable();
+        BlockPos.Mutable pos2 = new BlockPos.Mutable();
         for (int dx = -10; dx <= 10; dx++) {
             for (int dy = -10; dy <= 10; dy++) {
                 for (int dz = -10; dz <= 10; dz++) {
-                    pos.set(px + dx, py + dy, pz + dz);
-                    if (world.getBlockEntity(pos) != null) {
-                        blueLine(builder, matrix, pos, 0, 0, 0, 1, 0, 0);
-                        blueLine(builder, matrix, pos, 0, 1, 0, 1, 1, 0);
-                        blueLine(builder, matrix, pos, 0, 0, 1, 1, 0, 1);
-                        blueLine(builder, matrix, pos, 0, 1, 1, 1, 1, 1);
+                    pos1.set(10, 4, 8);
+                    pos2.set(px + dx, py + dy, pz + dz);
+                    if (world.getBlockEntity(pos1) != null && world.getBlockEntity(pos2) != null
+                            && world.getBlockEntity(pos1).getType() == TileEntityRegister.batteryBlockEntity.get()
+                            && world.getBlockEntity(pos2).getType() == TileEntityRegister.batteryBlockEntity.get()) {
+                        powerLine(builder, matrix, pos1, pos2, 0.5F, 1.1F, 0.5F, 0.5F, 1.1F, 0.5F);
 
-                        blueLine(builder, matrix, pos, 0, 0, 0, 0, 0, 1);
-                        blueLine(builder, matrix, pos, 1, 0, 0, 1, 0, 1);
-                        blueLine(builder, matrix, pos, 0, 1, 0, 0, 1, 1);
-                        blueLine(builder, matrix, pos, 1, 1, 0, 1, 1, 1);
+//                        blueLine(builder, matrix, pos, 0, 0, 0, 1, 0, 0);
+//                        blueLine(builder, matrix, pos, 0, 1, 0, 1, 1, 0);
+//                        blueLine(builder, matrix, pos, 0, 0, 1, 1, 0, 1);
+//                        blueLine(builder, matrix, pos, 0, 1, 1, 1, 1, 1);
 
-                        blueLine(builder, matrix, pos, 0, 0, 0, 0, 1, 0);
-                        blueLine(builder, matrix, pos, 1, 0, 0, 1, 1, 0);
-                        blueLine(builder, matrix, pos, 0, 0, 1, 0, 1, 1);
-                        blueLine(builder, matrix, pos, 1, 0, 1, 1, 1, 1);
+//                        blueLine(builder, matrix, pos, 0, 0, 0, 0, 0, 1);
+//                        blueLine(builder, matrix, pos, 1, 0, 0, 1, 0, 1);
+//                        blueLine(builder, matrix, pos, 0, 1, 0, 0, 1, 1);
+//                        blueLine(builder, matrix, pos, 1, 1, 0, 1, 1, 1);
+//
+//                        blueLine(builder, matrix, pos, 0, 0, 0, 0, 1, 0);
+//                        blueLine(builder, matrix, pos, 1, 0, 0, 1, 1, 0);
+//                        blueLine(builder, matrix, pos, 0, 0, 1, 0, 1, 1);
+//                        blueLine(builder, matrix, pos, 1, 0, 1, 1, 1, 1);
                     }
                 }
             }

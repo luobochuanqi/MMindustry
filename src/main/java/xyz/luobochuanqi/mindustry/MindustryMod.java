@@ -17,9 +17,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import xyz.luobochuanqi.mindustry.client.render.wires.AfterBlockEntityRender;
 import xyz.luobochuanqi.mindustry.client.render.wires.WiresRenderer;
-import xyz.luobochuanqi.mindustry.init.BlockRegister;
-import xyz.luobochuanqi.mindustry.init.ItemRegister;
-import xyz.luobochuanqi.mindustry.init.TileEntityRegister;
+import xyz.luobochuanqi.mindustry.common.init.BlockRegister;
+import xyz.luobochuanqi.mindustry.common.init.ItemRegister;
+import xyz.luobochuanqi.mindustry.common.init.TileEntityRegister;
 
 import java.util.stream.Collectors;
 

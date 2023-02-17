@@ -1,10 +1,9 @@
-package xyz.luobochuanqi.mindustry.world.BlockEntity.BatteryBlockEntity;
+package xyz.luobochuanqi.mindustry.common.world.BlockEntity.BatteryBlockEntity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResult;
-import xyz.luobochuanqi.mindustry.init.TileEntityRegister;
+import xyz.luobochuanqi.mindustry.common.init.TileEntityRegister;
 
 public class BatteryBlockEntity extends TileEntity {
     public int counter = 0;

@@ -1,11 +1,11 @@
-package xyz.luobochuanqi.mindustry.init;
+package xyz.luobochuanqi.mindustry.common.init;
 
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import xyz.luobochuanqi.mindustry.Utils;
-import xyz.luobochuanqi.mindustry.world.BlockEntity.BatteryBlockEntity.BatteryBlockEntity;
+import xyz.luobochuanqi.mindustry.common.world.BlockEntity.BatteryBlockEntity.BatteryBlockEntity;
 
 public class TileEntityRegister {
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES =

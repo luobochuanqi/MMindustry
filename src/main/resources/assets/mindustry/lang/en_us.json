@@ -1,3 +1,20 @@
 {
-  "message.mindustry.cs": "hello"
+  "message.mindustry.cs": "hello",
+
+  "item.mindustry.blast_compound": "",
+  "item.mindustry.coal": "",
+  "item.mindustry.copper": "",
+  "item.mindustry.graphite": "",
+  "item.mindustry.lead": "",
+  "item.mindustry.metaglass": "",
+  "item.mindustry.phase_fabric": "",
+  "item.mindustry.plastanium": "",
+  "item.mindustry.pyratite": "",
+  "item.mindustry.sand": "",
+  "item.mindustry.scrap": "",
+  "item.mindustry.silicon": "",
+  "item.mindustry.spore_pod": "",
+  "item.mindustry.surge_alloy": "",
+  "item.mindustry.thorium": "",
+  "item.mindustry.titanium": ""
 }

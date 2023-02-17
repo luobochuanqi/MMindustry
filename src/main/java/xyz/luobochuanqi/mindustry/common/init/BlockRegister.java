@@ -1,4 +1,4 @@
-package xyz.luobochuanqi.mindustry.init;
+package xyz.luobochuanqi.mindustry.common.init;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -7,7 +7,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import xyz.luobochuanqi.mindustry.Utils;
-import xyz.luobochuanqi.mindustry.world.BlockEntity.BatteryBlockEntity.BatteryBlock;
+import xyz.luobochuanqi.mindustry.common.world.BlockEntity.BatteryBlockEntity.BatteryBlock;
 
 public class BlockRegister {
     public static final DeferredRegister<Block> BLOCKS =
