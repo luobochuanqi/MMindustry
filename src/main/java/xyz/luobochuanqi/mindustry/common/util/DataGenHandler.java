@@ -1,9 +1,6 @@
 package xyz.luobochuanqi.mindustry.common.util;
 
-import com.google.gson.JsonElement;
-import net.minecraft.client.renderer.model.ItemModelGenerator;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
@@ -18,8 +15,8 @@ import xyz.luobochuanqi.mindustry.common.world.Item.Ores;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = Utils.ModID)
 public class DataGenHandler {
@@ -28,7 +25,10 @@ public class DataGenHandler {
         ExistingFileHelper helper = event.getExistingFileHelper();
         if (event.includeClient()) {
             //block/item models, blockstates, language files...
-            event.getGenerator().addProvider(new ModLanguageProvider(event.getGenerator(), Utils.ModID, "zh_cn"));
+            //create en_us.json
+//            event.getGenerator().addProvider(new ModLanguageProvider(event.getGenerator(), Utils.ModID, "en_us"));
+            //gen models.json
+            event.getGenerator().addProvider(new ModItemModelProvider(event.getGenerator(), Utils.ModID, event.getExistingFileHelper()));
         }
         if (event.includeServer()) {
             //recipes,advancements,tags...
@@ -46,11 +46,7 @@ public class DataGenHandler {
         @Override
         protected void addTranslations() {
             for (Ores.OreType myOre : Ores.OreType.values()) {
-                try {
-                    add("item.mindustry." + myOre.toString(), pro2json(myOre.toString()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                add("item.mindustry." + myOre.toString(), underline2hump(myOre.toString()));
             }
         }
 
@@ -60,21 +56,37 @@ public class DataGenHandler {
             properties.load(inputStream);
             return properties.getProperty("item." + name + ".name");
         }
+
+        public static String underline2hump(String str) {
+            String regex = "_(.)";
+            Matcher matcher = Pattern.compile(regex).matcher(str);
+            while (matcher.find()) {
+                String target = matcher.group(1);
+                str = str.replaceAll("_"+target, " " + target.toUpperCase());
+            }
+            str = str.substring(0, 1).toUpperCase() + str.substring(1);
+            return str;
+        }
     }
 
-    public class ModItemModelProvider extends ItemModelProvider {
+    public static class ModItemModelProvider extends ItemModelProvider {
+        public final ResourceLocation GENERATED = new ResourceLocation("item/generated");
+        public final ResourceLocation HANDHELD = new ResourceLocation("item/handheld");
+
         public ModItemModelProvider(DataGenerator generator, String modid, ExistingFileHelper existingFileHelper) {
             super(generator, modid, existingFileHelper);
         }
 
         @Override
         protected void registerModels() {
-
+            for (Ores.OreType myOre : Ores.OreType.values()) {
+                generatedItem(myOre.toString());
+            }
         }
 
-        @Override
-        protected void generateAll(DirectoryCache cache) {
-            super.generateAll(cache);
+        protected final ItemModelBuilder generatedItem(String name) {
+            return withExistingParent(name, GENERATED)
+                    .texture("layer0", modLoc("item/" + name));
         }
     }
 }
