@@ -16,5 +16,12 @@
   "item.mindustry.spore_pod": "Spore Pod",
   "item.mindustry.surge_alloy": "Surge Alloy",
   "item.mindustry.thorium": "Thorium",
-  "item.mindustry.titanium": "Titanium"
+  "item.mindustry.titanium": "Titanium",
+
+  "block.mindustry.coal_ore": "Coal Ore",
+  "block.mindustry.copper_ore": "Copper Ore",
+  "block.mindustry.lead_ore": "Lead Ore",
+  "block.mindustry.scrap_ore": "Scrap Ore",
+  "block.mindustry.thorium_ore": "Thorium Ore",
+  "block.mindustry.titanium_ore": "Titanium Ore"
 }

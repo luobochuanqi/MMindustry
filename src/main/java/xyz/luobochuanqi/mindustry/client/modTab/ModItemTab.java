@@ -11,6 +11,6 @@ public class ModItemTab extends ItemGroup {
 
     @Override
     public ItemStack makeIcon() {
-        return new ItemStack(ItemRegister.obsidianBlock.get());
+        return new ItemStack(ItemRegister.battery_block.get());
     }
 }

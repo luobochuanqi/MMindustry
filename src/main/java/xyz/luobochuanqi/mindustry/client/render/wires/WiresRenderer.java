@@ -69,7 +69,7 @@ public class WiresRenderer {
                     if (world.getBlockEntity(pos1) != null && world.getBlockEntity(pos2) != null
                             && world.getBlockEntity(pos1).getType() == TileEntityRegister.batteryBlockEntity.get()
                             && world.getBlockEntity(pos2).getType() == TileEntityRegister.batteryBlockEntity.get()) {
-                        powerLine(builder, matrix, pos1, pos2, 0.5F, 1.1F, 0.5F, 0.5F, 1.1F, 0.5F);
+                        powerLine(builder, matrix, pos1, pos2, 0.5F, 1, 0.5F, 0.5F, 1, 0.5F);
 
 //                        blueLine(builder, matrix, pos, 0, 0, 0, 1, 0, 0);
 //                        blueLine(builder, matrix, pos, 0, 1, 0, 1, 1, 0);

@@ -13,5 +13,5 @@ public class TileEntityRegister {
 
     public static final RegistryObject<TileEntityType<BatteryBlockEntity>> batteryBlockEntity =
             TILE_ENTITIES.register("battery_block_entity", () -> TileEntityType.Builder.of(BatteryBlockEntity::new,
-                    BlockRegister.batteryBlock.get()).build(null));
+                    BlockRegister.battery_block.get()).build(null));
 }

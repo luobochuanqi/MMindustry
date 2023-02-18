@@ -13,11 +13,37 @@ public class ItemRegister {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, Utils.ModID);
 
-    public static final RegistryObject<Item> obsidianBlock =
-            ITEMS.register("obsidian_block",
-                    () -> new BlockItem(BlockRegister.batteryBlock.get(),
+    public static final RegistryObject<Item> battery_block =
+            ITEMS.register("battery_block",
+                    () -> new BlockItem(BlockRegister.battery_block.get(),
                             new Item.Properties().tab(ModTab.modItemGroup)));
-    //Ores
+
+    public static final RegistryObject<Item> copper_ore =
+            ITEMS.register("copper_ore",
+                    () -> new BlockItem(BlockRegister.copper_ore.get(),
+                            new Item.Properties().tab(ModTab.modItemGroup)));
+    public static final RegistryObject<Item> lead_ore =
+            ITEMS.register("lead_ore",
+                    () -> new BlockItem(BlockRegister.lead_ore.get(),
+                            new Item.Properties().tab(ModTab.modItemGroup)));
+    public static final RegistryObject<Item> coal_ore =
+            ITEMS.register("coal_ore",
+                    () -> new BlockItem(BlockRegister.coal_ore.get(),
+                            new Item.Properties().tab(ModTab.modItemGroup)));
+    public static final RegistryObject<Item> titanium_ore =
+            ITEMS.register("titanium_ore",
+                    () -> new BlockItem(BlockRegister.titanium_ore.get(),
+                            new Item.Properties().tab(ModTab.modItemGroup)));
+    public static final RegistryObject<Item> thorium_ore =
+            ITEMS.register("thorium_ore",
+                    () -> new BlockItem(BlockRegister.thorium_ore.get(),
+                            new Item.Properties().tab(ModTab.modItemGroup)));
+    public static final RegistryObject<Item> scrap_ore =
+            ITEMS.register("scrap_ore",
+                    () -> new BlockItem(BlockRegister.scrap_ore.get(),
+                            new Item.Properties().tab(ModTab.modItemGroup)));
+
+    //Ore items
     public static final RegistryObject<Item> copper =
             ITEMS.register("copper", () -> new Ores(Ores.OreType.copper));
     public static final RegistryObject<Item> lead =
