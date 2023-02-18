@@ -12,6 +12,7 @@ import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import xyz.luobochuanqi.mindustry.Utils;
 import xyz.luobochuanqi.mindustry.common.world.Item.Ores;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -26,9 +27,11 @@ public class DataGenHandler {
         if (event.includeClient()) {
             //block/item models, blockstates, language files...
             //create en_us.json
-//            event.getGenerator().addProvider(new ModLanguageProvider(event.getGenerator(), Utils.ModID, "en_us"));
+//            event.getGenerator().addProvider(new ModLanguageProviderUS(event.getGenerator(), Utils.ModID, "en_us"));
+            //create zh_cn.json
+//            event.getGenerator().addProvider(new ModLanguageProviderCN(event.getGenerator(), Utils.ModID, "zh_cn"));
             //gen models.json
-            event.getGenerator().addProvider(new ModItemModelProvider(event.getGenerator(), Utils.ModID, event.getExistingFileHelper()));
+//            event.getGenerator().addProvider(new ModItemModelProvider(event.getGenerator(), Utils.ModID, event.getExistingFileHelper()));
         }
         if (event.includeServer()) {
             //recipes,advancements,tags...
@@ -38,8 +41,8 @@ public class DataGenHandler {
         }
     }
 
-    public static class ModLanguageProvider extends LanguageProvider {
-        public ModLanguageProvider(DataGenerator gen, String modid, String locale) {
+    public static class ModLanguageProviderUS extends LanguageProvider {
+        public ModLanguageProviderUS(DataGenerator gen, String modid, String locale) {
             super(gen, modid, locale);
         }
 
@@ -48,13 +51,6 @@ public class DataGenHandler {
             for (Ores.OreType myOre : Ores.OreType.values()) {
                 add("item.mindustry." + myOre.toString(), underline2hump(myOre.toString()));
             }
-        }
-
-        public String pro2json(String name) throws IOException {
-            InputStream inputStream = this.getClass().getResourceAsStream("bundle_zh_CN.properties");
-            Properties properties = new Properties();
-            properties.load(inputStream);
-            return properties.getProperty("item." + name + ".name");
         }
 
         public static String underline2hump(String str) {
@@ -66,6 +62,35 @@ public class DataGenHandler {
             }
             str = str.substring(0, 1).toUpperCase() + str.substring(1);
             return str;
+        }
+    }
+
+    public static class ModLanguageProviderCN extends LanguageProvider {
+        public ModLanguageProviderCN(DataGenerator gen, String modid, String locale) {
+            super(gen, modid, locale);
+        }
+
+        @Override
+        protected void addTranslations() {
+            for (Ores.OreType myOre : Ores.OreType.values()) {
+                try {
+                    add("item.mindustry." + myOre.toString(), pro2json(myOre.toString()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        public String pro2json(String name) throws IOException {
+            Properties pro = new Properties();
+            FileInputStream in = new FileInputStream("zh_CN.properties");
+            pro.load(in);
+            in.close();
+            return pro.getProperty("item." + name + ".name");
+//            InputStream inputStream = this.getClass().getResourceAsStream("zh_CN.properties");
+//            Properties properties = new Properties();
+//            properties.load(inputStream);
+//            return properties.getProperty("item." + name + ".name");
         }
     }
 
