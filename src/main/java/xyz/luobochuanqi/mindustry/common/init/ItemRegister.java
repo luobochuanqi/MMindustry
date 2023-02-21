@@ -18,6 +18,11 @@ public class ItemRegister {
                     () -> new BlockItem(BlockRegister.battery_block.get(),
                             new Item.Properties().tab(ModTab.modItemGroup)));
 
+    public static final RegistryObject<Item> drill_block =
+            ITEMS.register("drill_block",
+                    () -> new BlockItem(BlockRegister.drill_block.get(),
+                            new Item.Properties().tab(ModTab.modItemGroup)));
+
     public static final RegistryObject<Item> copper_ore =
             ITEMS.register("copper_ore",
                     () -> new BlockItem(BlockRegister.copper_ore.get(),

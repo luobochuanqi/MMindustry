@@ -39,13 +39,13 @@ public class DataGenHandler {
         if (event.includeClient()) {
             //block/item models, blockstates, language files...
             //create en_us.json
-            event.getGenerator().addProvider(new ModLanguageProviderUS(event.getGenerator(), Utils.ModID, "en_us"));
+//            event.getGenerator().addProvider(new ModLanguageProviderUS(event.getGenerator(), Utils.ModID, "en_us"));
             //create zh_cn.json
 //            event.getGenerator().addProvider(new ModLanguageProviderCN(event.getGenerator(), Utils.ModID, "zh_cn"));
             //gen models.json
 //            event.getGenerator().addProvider(new ModOreItemModelProvider(event.getGenerator(), Utils.ModID, event.getExistingFileHelper()));
             //gen blockstate
-//            event.getGenerator().addProvider(new ModOreBlockStateProvider(event.getGenerator(), Utils.ModID, event.getExistingFileHelper()));
+            event.getGenerator().addProvider(new ModOreBlockStateProvider(event.getGenerator(), Utils.ModID, event.getExistingFileHelper()));
 //            event.getGenerator().addProvider(new ModItemModelProvider(event.getGenerator(), Utils.ModID, event.getExistingFileHelper(), ItemRegister.ITEMS));
         }
         if (event.includeServer()) {

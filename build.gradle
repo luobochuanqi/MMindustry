@@ -15,9 +15,9 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '0.1.1'
+version = '0.2.1'
 group = 'xyz.luobochuanqi.mindustry' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'mindustry'
+archivesBaseName = 'MindustryMod'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
 

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "mindustry:block/drill_block"
+    }
+  }
+}
