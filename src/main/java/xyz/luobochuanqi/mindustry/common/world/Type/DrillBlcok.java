@@ -10,28 +10,27 @@ import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BedPart;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityMerger;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraft.block.BedBlock;
-import net.minecraft.block.DoorBlock;
+import xyz.luobochuanqi.mindustry.Utils;
+import xyz.luobochuanqi.mindustry.common.util.Mod2x2Part;
 
 import javax.annotation.Nullable;
 
 public class DrillBlcok extends HorizontalBlock {
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
+    public static final EnumProperty<Mod2x2Part> ModPART = Utils.Mod2x2PART;
 
     public DrillBlcok(AbstractBlock.Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(PART, BedPart.FOOT));
+        this.registerDefaultState(this.stateDefinition.any().setValue(ModPART, Mod2x2Part.START));
     }
 
     @Override
@@ -167,11 +166,15 @@ public class DrillBlcok extends HorizontalBlock {
     }
 
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING, PART);
+        pBuilder.add(FACING, ModPART, PART);
     }
 
 //    public TileEntity newBlockEntity(IBlockReader p_196283_1_) {
 //        return new DrillBlcokEntity();
+//    }
+
+//    public BlockPos relative(Direction pDirection) {
+//        return new BlockPos(this.getX() + pDirection.getStepX(), this.getY() + pDirection.getStepY(), this.getZ() + pDirection.getStepZ());
 //    }
 
     /**
@@ -181,11 +184,22 @@ public class DrillBlcok extends HorizontalBlock {
         super.setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
         if (!pLevel.isClientSide) {
             BlockPos blockpos = pPos.relative(pState.getValue(FACING));
-            pLevel.setBlock(blockpos, pState.setValue(PART, BedPart.HEAD), 3);
+            BlockState nextState;
+            pLevel.setBlock(blockpos, pState.setValue(ModPART, Mod2x2Part.FRONT).rotate(Rotation.CLOCKWISE_90), 3);
+
+            nextState = pLevel.getBlockState(blockpos);
+            blockpos = blockpos.relative(nextState.getValue(FACING));
+            pLevel.setBlock(blockpos, nextState.setValue(ModPART, Mod2x2Part.CORNER).rotate(Rotation.CLOCKWISE_90), 3);
+
+            nextState = pLevel.getBlockState(blockpos);
+            blockpos = blockpos.relative(nextState.getValue(FACING));
+            pLevel.setBlock(blockpos, nextState.setValue(ModPART, Mod2x2Part.RIGHT).rotate(Rotation.CLOCKWISE_90), 3);
+
             pLevel.blockUpdated(pPos, Blocks.AIR);
             pState.updateNeighbourShapes(pLevel, pPos, 3);
-        }
 
+//            for(int i=0;i<3;i++){ BlockPos blockpos=pPos.relative(pState.getValue(FACING)); BlockState nextState; pLevel.setBlock(blockpos,pState.setValue(ModPART,Mod2x2Part.FRONT).rotate(Rotation.CLOCKWISE_90),3); nextState=pLevel.getBlockState(blockpos); blockpos=blockpos.relative(nextState.getValue(FACING)); pLevel.setBlock(blockpos,nextState.setValue(ModPART,Mod2x2Part[i]).rotate(Rotation.CLOCKWISE_90),3); nextState=pLevel.getBlockState(blockpos); blockpos=blockpos.relative(nextState.getValue(FACING)); } pLevel.blockUpdated(pPos,Blocks.AIR); pState.updateNeighbourShapes(pLevel,pPos,3);
+        }
     }
 
     /**
