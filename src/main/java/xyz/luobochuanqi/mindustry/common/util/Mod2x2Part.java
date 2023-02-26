@@ -5,8 +5,8 @@ import net.minecraft.util.IStringSerializable;
 public enum Mod2x2Part implements IStringSerializable {
     START("start"),
     FRONT("front"),
-    RIGHT("right"),
-    CORNER("corner");
+    CORNER("corner"),
+    RIGHT("right");
 
     private final String name;
 
@@ -14,7 +14,11 @@ public enum Mod2x2Part implements IStringSerializable {
         this.name = pName;
     }
 
-    public String toString() {
+    public static Mod2x2Part valueOf(int ordinal) {
+        return values()[ordinal];
+    }
+
+        public String toString() {
         return this.name;
     }
 
