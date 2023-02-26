@@ -19,10 +19,10 @@ import xyz.luobochuanqi.mindustry.common.util.Mod2x2Part;
 
 import javax.annotation.Nullable;
 
-public class DrillBlcok extends HorizontalBlock {
+public class DrillBlock extends HorizontalBlock {
     public static final EnumProperty<Mod2x2Part> ModPART = Utils.Mod2x2PART;
 
-    public DrillBlcok(AbstractBlock.Properties pProperties) {
+    public DrillBlock(AbstractBlock.Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(ModPART, Mod2x2Part.START));
     }
@@ -51,7 +51,7 @@ public class DrillBlcok extends HorizontalBlock {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new DrillBlcokEntity();
+        return new DrillBlockEntity();
     }
 
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> pBuilder) {

@@ -9,7 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import xyz.luobochuanqi.mindustry.Utils;
 import xyz.luobochuanqi.mindustry.common.world.Block.Ore.OresBlock;
 import xyz.luobochuanqi.mindustry.common.world.BlockEntity.BatteryBlockEntity.BatteryBlock;
-import xyz.luobochuanqi.mindustry.common.world.Type.DrillBlcok;
+import xyz.luobochuanqi.mindustry.common.world.Type.DrillBlock;
 
 public class BlockRegister {
     public static final DeferredRegister<Block> BLOCKS =
@@ -40,5 +40,5 @@ public class BlockRegister {
 
     public static final RegistryObject<Block> drill_block =
             BLOCKS.register("drill_block",
-                    () -> new DrillBlcok(AbstractBlock.Properties.of(Material.STONE).strength(5)));
+                    () -> new DrillBlock(AbstractBlock.Properties.of(Material.STONE).strength(5)));
 }
