@@ -22,6 +22,10 @@ public class ItemRegister {
             ITEMS.register("drill_block",
                     () -> new BlockItem(BlockRegister.drill_block.get(),
                             new Item.Properties().tab(ModTab.modItemGroup)));
+    public static final RegistryObject<Item> mechanical_drill_block =
+            ITEMS.register("mechanical_drill_block",
+                    () -> new BlockItem(BlockRegister.mechanical_drill_block.get(),
+                            new Item.Properties().tab(ModTab.modItemGroup)));
 
     public static final RegistryObject<Item> copper_ore =
             ITEMS.register("copper_ore",
