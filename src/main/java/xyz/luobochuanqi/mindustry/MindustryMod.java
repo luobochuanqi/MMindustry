@@ -18,6 +18,7 @@ import org.apache.logging.log4j.Logger;
 import xyz.luobochuanqi.mindustry.client.render.wires.AfterBlockEntityRender;
 import xyz.luobochuanqi.mindustry.client.render.wires.WiresRenderer;
 import xyz.luobochuanqi.mindustry.common.init.BlockRegister;
+import xyz.luobochuanqi.mindustry.common.init.ContainerRegister;
 import xyz.luobochuanqi.mindustry.common.init.ItemRegister;
 import xyz.luobochuanqi.mindustry.common.init.TileEntityRegister;
 
@@ -34,6 +35,7 @@ public class MindustryMod
         ItemRegister.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         BlockRegister.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         TileEntityRegister.TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ContainerRegister.CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         MinecraftForge.EVENT_BUS.addListener(AfterBlockEntityRender::render);
         MinecraftForge.EVENT_BUS.addListener(WiresRenderer::render);

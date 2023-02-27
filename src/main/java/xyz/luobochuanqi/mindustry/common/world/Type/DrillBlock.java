@@ -8,11 +8,9 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import xyz.luobochuanqi.mindustry.Utils;
 import xyz.luobochuanqi.mindustry.common.util.Mod2x2Part;
@@ -48,11 +46,11 @@ public class DrillBlock extends HorizontalBlock {
         return true;
     }
 
-    @Nullable
-    @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new DrillBlockEntity();
-    }
+//    @Nullable
+//    @Override
+//    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+//        return new DrillBlockEntity();
+//    }
 
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(FACING, ModPART);
