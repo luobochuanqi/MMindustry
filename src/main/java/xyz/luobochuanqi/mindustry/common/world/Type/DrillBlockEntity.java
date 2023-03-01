@@ -1,10 +1,10 @@
 package xyz.luobochuanqi.mindustry.common.world.Type;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import xyz.luobochuanqi.mindustry.common.init.ItemRegister;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +24,7 @@ public class DrillBlockEntity extends TileEntity implements ITickableTileEntity 
      * */
     public Set<Item> getDrillables() {
         Set<Item> ItemSet = new HashSet<>();
-        ItemSet.add(Items.SAND);
+        ItemSet.add(ItemRegister.sand.get());
         return ItemSet;
     }
 

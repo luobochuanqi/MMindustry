@@ -9,8 +9,12 @@ public class ContainerRegister {
     public static final DeferredRegister<ContainerType<?>> CONTAINERS =
             DeferredRegister.create(ForgeRegistries.CONTAINERS, Utils.ModID);
 
-//    public static final RegistryObject<ContainerType<ObsidianFirstContainer>> obsidianFirstContainer =
-//            CONTAINERS.register("obsidian_first_container",
-//                    () -> IForgeContainerType.create((int windowId, PlayerInventory inv, PacketBuffer data)
-//                            -> new ObsidianFirstContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world, new ObsidianFirstContainerItemNumber())));
+//    public static ContainerType<DrillBlockContainer> DRILL_BLOCK_CONTAINER;
+
+//    public static final RegistryObject<ContainerType<DrillBlockContainer>> drill_container =
+//            CONTAINERS.register("drill_container",
+//                    () -> IForgeContainerType.create((windowId, inv, data) -> {
+//                        BlockPos pos = data.readBlockPos();
+//                        return new DrillBlockContainer(windowId, Minecraft.getInstance().level, pos, inv, Minecraft.getInstance().player);
+//                    }));
 }

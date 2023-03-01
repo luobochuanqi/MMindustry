@@ -1,11 +1,17 @@
 package xyz.luobochuanqi.mindustry.common.world.BlockEntity.Machine.Mechanical_Drill;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
@@ -17,13 +23,14 @@ import org.apache.logging.log4j.Logger;
 import xyz.luobochuanqi.mindustry.common.init.ItemRegister;
 import xyz.luobochuanqi.mindustry.common.init.TileEntityRegister;
 import xyz.luobochuanqi.mindustry.common.world.Type.DrillBlockEntity;
+import xyz.luobochuanqi.mindustry.common.world.Type.DrillContainer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITickableTileEntity {
+public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITickableTileEntity, INamedContainerProvider {
     private LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
 
     private static final Logger LOGGER = LogManager.getLogger();
@@ -102,5 +109,17 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
             return handler.cast();
         }
         return super.getCapability(pCap, side);
+    }
+
+    @Override
+    public ITextComponent getDisplayName() {
+        return new StringTextComponent(getType().getRegistryName().getPath());
+    }
+
+    @Nullable
+    @Override
+    public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+//        return new DrillBlockContainer(p_createMenu_1_, p_createMenu_2_, p_createMenu_3_);
+        return new DrillContainer(i, playerInventory, this.getLevel(), this.getBlockPos());
     }
 }
