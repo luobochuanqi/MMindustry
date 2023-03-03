@@ -1,4 +1,4 @@
-package xyz.luobochuanqi.mindustry.common.world.Type;
+package xyz.luobochuanqi.mindustry.common.Type.DrillBlock;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.PushReaction;

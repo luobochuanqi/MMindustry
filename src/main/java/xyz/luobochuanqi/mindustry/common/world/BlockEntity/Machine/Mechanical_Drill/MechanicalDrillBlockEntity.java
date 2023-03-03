@@ -3,6 +3,7 @@ package xyz.luobochuanqi.mindustry.common.world.BlockEntity.Machine.Mechanical_D
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
@@ -20,10 +21,11 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillBlockContainer;
+import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillBlockEntity;
+import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillContainerItemNumber;
 import xyz.luobochuanqi.mindustry.common.init.ItemRegister;
 import xyz.luobochuanqi.mindustry.common.init.TileEntityRegister;
-import xyz.luobochuanqi.mindustry.common.world.Type.DrillBlockEntity;
-import xyz.luobochuanqi.mindustry.common.world.Type.DrillContainer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -32,6 +34,8 @@ import java.util.Set;
 
 public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITickableTileEntity, INamedContainerProvider {
     private LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
+    private Inventory inventory = new Inventory(1);
+    private DrillContainerItemNumber itemNumber = new DrillContainerItemNumber();
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -41,7 +45,13 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
 
     @Override
     public void tick() {
+        if (!this.level.isClientSide) {
+            this.itemNumber.set(0, this.inventory.getItem(0).getCount());
+        }
+    }
 
+    public Inventory getInventory() {
+        return inventory;
     }
 
     @Override
@@ -120,6 +130,6 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
     @Override
     public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
 //        return new DrillBlockContainer(p_createMenu_1_, p_createMenu_2_, p_createMenu_3_);
-        return new DrillContainer(i, playerInventory, this.getLevel(), this.getBlockPos());
+        return new DrillBlockContainer(i, this.level, this.worldPosition, playerInventory, new DrillContainerItemNumber());
     }
 }

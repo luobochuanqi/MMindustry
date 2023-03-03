@@ -1,4 +1,4 @@
-package xyz.luobochuanqi.mindustry.common.world.Type;
+package xyz.luobochuanqi.mindustry.common.Type.DrillBlock;
 
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.ITickableTileEntity;
