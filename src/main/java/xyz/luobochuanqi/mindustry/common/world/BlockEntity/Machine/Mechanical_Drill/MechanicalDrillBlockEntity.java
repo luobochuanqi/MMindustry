@@ -19,9 +19,6 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillBlockContainer;
 import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillBlockEntity;
 import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillContainerItemNumber;
 import xyz.luobochuanqi.mindustry.common.init.ItemRegister;
@@ -36,8 +33,6 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
     private LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
     private Inventory inventory = new Inventory(1);
     private DrillContainerItemNumber itemNumber = new DrillContainerItemNumber();
-
-    private static final Logger LOGGER = LogManager.getLogger();
 
     public MechanicalDrillBlockEntity() {
         super(TileEntityRegister.mechanicalDrillBlockEntity.get());
@@ -87,7 +82,6 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
             public boolean isItemValid(int slot, @Nonnull ItemStack pStack) {
                 for (Item item : getDrillables()) {
                     if (pStack.getItem() == item) {
-                        LOGGER.debug("qqq1");
                         return true;
                     }
                 }
@@ -100,7 +94,6 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
                 boolean flag = false;
                 for (Item item : getDrillables()) {
                     if (pStack.getItem() == item) {
-                        LOGGER.debug(item.toString());
                         flag = true;
                     }
                 }
@@ -130,6 +123,6 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
     @Override
     public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
 //        return new DrillBlockContainer(p_createMenu_1_, p_createMenu_2_, p_createMenu_3_);
-        return new DrillBlockContainer(i, this.level, this.worldPosition, playerInventory, new DrillContainerItemNumber());
+        return new MechanicalDrillBlockContainer(i, this.level, this.worldPosition, playerInventory, new DrillContainerItemNumber());
     }
 }
