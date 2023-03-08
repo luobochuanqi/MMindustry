@@ -23,6 +23,7 @@ import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillBlockEntity;
 import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillContainerItemNumber;
 import xyz.luobochuanqi.mindustry.common.init.ItemRegister;
 import xyz.luobochuanqi.mindustry.common.init.TileEntityRegister;
+import xyz.luobochuanqi.mindustry.common.util.Mod2x2Part;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,10 +39,23 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
         super(TileEntityRegister.mechanicalDrillBlockEntity.get());
     }
 
+    public void updateData() {
+        this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(Cap -> {
+            this.level.getBlockEntity(getMainBlockPos()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(pCap -> {
+                CompoundNBT pNBT = ((INBTSerializable<CompoundNBT>)pCap).serializeNBT();
+                ((INBTSerializable<CompoundNBT>)Cap).deserializeNBT(pNBT);
+            });
+        });
+    }
+
     @Override
     public void tick() {
         if (!this.level.isClientSide) {
             this.itemNumber.set(0, this.inventory.getItem(0).getCount());
+
+            if (level.getBlockState(worldPosition).getValue(ModPART) != Mod2x2Part.START) {
+                updateData();
+            }
         }
     }
 
@@ -122,7 +136,6 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
     @Nullable
     @Override
     public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-//        return new DrillBlockContainer(p_createMenu_1_, p_createMenu_2_, p_createMenu_3_);
         return new MechanicalDrillBlockContainer(i, this.level, this.worldPosition, playerInventory, new DrillContainerItemNumber());
     }
 }

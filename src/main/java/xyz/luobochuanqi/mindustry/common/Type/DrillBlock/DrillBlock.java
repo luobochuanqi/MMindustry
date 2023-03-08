@@ -19,6 +19,7 @@ import javax.annotation.Nullable;
 
 public class DrillBlock extends HorizontalBlock {
     public static final EnumProperty<Mod2x2Part> ModPART = Utils.Mod2x2PART;
+    public BlockPos MainBlockPos;
 
     public DrillBlock(AbstractBlock.Properties pProperties) {
         super(pProperties);
@@ -85,6 +86,7 @@ public class DrillBlock extends HorizontalBlock {
         if (!pLevel.isClientSide) {
             BlockPos nextblockpos = pPos;
             BlockState nextState = pState;
+            this.MainBlockPos = pPos;
             // Place the child-blocks clockwise
             for (int i = 1; i <= 3; i++) {
                 nextblockpos = nextblockpos.relative(nextState.getValue(FACING));

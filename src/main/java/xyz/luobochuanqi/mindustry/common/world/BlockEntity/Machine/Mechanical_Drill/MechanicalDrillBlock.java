@@ -40,10 +40,7 @@ public class MechanicalDrillBlock extends DrillBlock {
             TileEntity tileentity = pLevel.getBlockEntity(pPos);
             if (tileentity instanceof INamedContainerProvider) {
                 NetworkHooks.openGui((ServerPlayerEntity) pPlayer, (INamedContainerProvider) tileentity, tileentity.getBlockPos());
-//                pPlayer.openMenu((MechanicalDrillBlockEntity)tileentity);
-//                pPlayer.awardStat(Stats.INSPECT_HOPPER);
             }
-
             return ActionResultType.CONSUME;
         }
     }
