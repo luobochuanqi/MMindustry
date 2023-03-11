@@ -1,7 +1,13 @@
 package xyz.luobochuanqi.mindustry.common.Type.DrillBlock;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -10,7 +16,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.items.CapabilityItemHandler;
 import xyz.luobochuanqi.mindustry.Utils;
+import xyz.luobochuanqi.mindustry.common.init.BlockRegister;
 import xyz.luobochuanqi.mindustry.common.init.ItemRegister;
 import xyz.luobochuanqi.mindustry.common.util.Mod2x2Part;
 
@@ -20,8 +29,54 @@ import java.util.Set;
 public class DrillBlockEntity extends TileEntity implements ITickableTileEntity {
     public static final EnumProperty<Mod2x2Part> ModPART = Utils.Mod2x2PART;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public Inventory inventory = new Inventory(1);
+    public int increment = 0;
+    public int rate;
+    public int counter = 0;
     public DrillBlockEntity(TileEntityType<?> pType) {
         super(pType);
+    }
+
+    public void updateData() {
+        this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(Cap -> {
+            this.level.getBlockEntity(getMainBlockPos()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(pCap -> {
+                CompoundNBT pNBT = ((INBTSerializable<CompoundNBT>)pCap).serializeNBT();
+                ((INBTSerializable<CompoundNBT>)Cap).deserializeNBT(pNBT);
+            });
+        });
+    }
+
+    /**
+     * Get the amount of minerals mined to simulate the mining rate
+     * */
+    public int getTheNumOfOres() {
+        int num = 0;
+        Block block2 = null;
+        Block block1 = this.level.getBlockState(this.worldPosition.below()).getBlock();
+        BlockPos[] blockPoses = getBlockPoses(this.worldPosition, this.getBlockState());
+        for (Block block : getDrillableBlock()) {
+            num = 0;
+            // Get minerals under the main block
+            if (block1 == block) {
+                num++;
+            }
+            // Gets minerals under child-blocks
+            for (int i = 0; i < 3; i++) {
+                if (this.level.getBlockState(blockPoses[i].below()).getBlock() == block) {
+                    num++;
+                }
+            }
+            if (num >= 1) {
+                block2 = block;
+                break;
+            }
+        }
+        if (getDrillableItemByBlock(block2) == this.inventory.getItem(0).getItem() || this.inventory.isEmpty()) {
+            return num;
+        } else {
+            num = 0;
+        }
+        return num;
     }
 
     /**
@@ -53,16 +108,64 @@ public class DrillBlockEntity extends TileEntity implements ITickableTileEntity 
 
     @Override
     public void tick() {
-
+        if (this.worldPosition == getMainBlockPos()) {
+            rate = (int) (getTheNumOfOres() * (getBaseDrillSpeed() / 4 * 10));
+            if (counter > 0) {
+                counter--;
+            } else if (counter <= 0) {
+                increment += rate;
+                Utils.LOGGER.info(rate);
+                Utils.LOGGER.info(increment);
+                if (increment >= 10) {
+//                int pItemInt = this.inventory.getItem(0).getCount();
+                    ItemStack newItemStack = new ItemStack(getDrillableItemByBlock(this.level.getBlockState(this.worldPosition.below()).getBlock()), 1);
+//                    this.inventory.addItem(newItemStack);
+//                    this.inventory.setItem(0, newItemStack);
+                    this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(pCap -> {
+                        pCap.insertItem(0, newItemStack, false);
+                    });
+                    increment -= 10;
+                    Utils.LOGGER.info(newItemStack);
+                }
+                counter = 20;
+            }
+        }
     }
 
     /**
      * Return the Set of minerals that can be mined
      * */
-    public Set<Item> getDrillables() {
+    public Set<Item> getDrillableItem() {
         Set<Item> ItemSet = new HashSet<>();
         ItemSet.add(ItemRegister.sand.get());
         return ItemSet;
+    }
+
+    /**
+     * Return the Set of minerals that can be mined
+     * */
+    public Set<Block> getDrillableBlock() {
+        Set<Block> BlockSet = new HashSet<>();
+        BlockSet.add(Blocks.SAND);
+        return BlockSet;
+    }
+
+    public Item getDrillableItemByBlock(Block pBlock) {
+        if (Blocks.SAND.equals(pBlock)) {
+            return ItemRegister.sand.get();
+        } else if (BlockRegister.copper_ore.get().equals(pBlock)) {
+            return ItemRegister.copper.get();
+        } else if (BlockRegister.lead_ore.get().equals(pBlock)) {
+            return ItemRegister.lead.get();
+        } else if (BlockRegister.scrap_ore.get().equals(pBlock)) {
+            return ItemRegister.scrap.get();
+        } else if (BlockRegister.coal_ore.get().equals(pBlock)) {
+            return ItemRegister.coal.get();
+        } else if (BlockRegister.titanium_ore.get().equals(pBlock)) {
+            return ItemRegister.titanium.get();
+        } else if (BlockRegister.thorium_ore.get().equals(pBlock)) {
+            return ItemRegister.thorium.get();
+        } else return Items.AIR;
     }
 
     public double getBaseDrillSpeed() {

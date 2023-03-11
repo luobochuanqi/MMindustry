@@ -1,6 +1,8 @@
 package xyz.luobochuanqi.mindustry.common.world.BlockEntity.Machine.Mechanical_Drill;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -21,6 +23,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillBlockEntity;
 import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillContainerItemNumber;
+import xyz.luobochuanqi.mindustry.common.init.BlockRegister;
 import xyz.luobochuanqi.mindustry.common.init.ItemRegister;
 import xyz.luobochuanqi.mindustry.common.init.TileEntityRegister;
 import xyz.luobochuanqi.mindustry.common.util.Mod2x2Part;
@@ -32,31 +35,22 @@ import java.util.Set;
 
 public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITickableTileEntity, INamedContainerProvider {
     private LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
-    private Inventory inventory = new Inventory(1);
     private DrillContainerItemNumber itemNumber = new DrillContainerItemNumber();
 
     public MechanicalDrillBlockEntity() {
         super(TileEntityRegister.mechanicalDrillBlockEntity.get());
     }
 
-    public void updateData() {
-        this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(Cap -> {
-            this.level.getBlockEntity(getMainBlockPos()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(pCap -> {
-                CompoundNBT pNBT = ((INBTSerializable<CompoundNBT>)pCap).serializeNBT();
-                ((INBTSerializable<CompoundNBT>)Cap).deserializeNBT(pNBT);
-            });
-        });
-    }
-
     @Override
     public void tick() {
         if (!this.level.isClientSide) {
-            this.itemNumber.set(0, this.inventory.getItem(0).getCount());
+//            this.itemNumber.set(0, this.inventory.getItem(0).getCount());
 
             if (level.getBlockState(worldPosition).getValue(ModPART) != Mod2x2Part.START) {
                 updateData();
             }
         }
+        super.tick();
     }
 
     public Inventory getInventory() {
@@ -64,7 +58,7 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
     }
 
     @Override
-    public Set<Item> getDrillables() {
+    public Set<Item> getDrillableItem() {
         Set<Item> ItemSet = new HashSet<>();
         ItemSet.add(ItemRegister.sand.get());
         ItemSet.add(ItemRegister.copper.get());
@@ -72,6 +66,22 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
         ItemSet.add(ItemRegister.scrap.get());
         ItemSet.add(ItemRegister.coal.get());
         return ItemSet;
+    }
+
+    @Override
+    public Set<Block> getDrillableBlock() {
+        Set<Block> BlockSet = new HashSet<>();
+        BlockSet.add(Blocks.SAND);
+        BlockSet.add(BlockRegister.copper_ore.get());
+        BlockSet.add(BlockRegister.lead_ore.get());
+        BlockSet.add(BlockRegister.scrap_ore.get());
+        BlockSet.add(BlockRegister.coal_ore.get());
+        return BlockSet;
+    }
+
+    @Override
+    public double getBaseDrillSpeed() {
+        return 0.4;
     }
 
     @Override
@@ -94,7 +104,7 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
         return new ItemStackHandler(1) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack pStack) {
-                for (Item item : getDrillables()) {
+                for (Item item : getDrillableItem()) {
                     if (pStack.getItem() == item) {
                         return true;
                     }
@@ -106,7 +116,7 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
             @Override
             public ItemStack insertItem(int slot, @Nonnull ItemStack pStack, boolean simulate) {
                 boolean flag = false;
-                for (Item item : getDrillables()) {
+                for (Item item : getDrillableItem()) {
                     if (pStack.getItem() == item) {
                         flag = true;
                     }
@@ -136,6 +146,6 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
     @Nullable
     @Override
     public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return new MechanicalDrillBlockContainer(i, this.level, this.worldPosition, playerInventory, new DrillContainerItemNumber());
+        return new MechanicalDrillBlockContainer(i, this.level, getMainBlockPos(), playerInventory, new DrillContainerItemNumber());
     }
 }

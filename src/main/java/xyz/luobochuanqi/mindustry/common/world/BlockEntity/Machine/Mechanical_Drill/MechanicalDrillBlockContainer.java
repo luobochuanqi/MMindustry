@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillBlockSlot;
 import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillContainerItemNumber;
 import xyz.luobochuanqi.mindustry.common.init.ContainerRegister;
 
@@ -28,7 +28,7 @@ public class MechanicalDrillBlockContainer extends Container {
         this.tileEntity = pLevel.getBlockEntity(pPos);
         MechanicalDrillBlockEntity mechanicalDrillBlockEntity = (MechanicalDrillBlockEntity) pLevel.getBlockEntity(pPos);
         mechanicalDrillBlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-            this.addSlot(new SlotItemHandler(capability, 0, 79, 35));
+            this.addSlot(new DrillBlockSlot(capability, 0, 79, 35));
         });
         layoutPlayerInventorySlots(pPlayerInventory, 8, 84);
     }
