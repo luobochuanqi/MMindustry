@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -24,6 +25,7 @@ import xyz.luobochuanqi.mindustry.common.init.ItemRegister;
 import xyz.luobochuanqi.mindustry.common.util.Mod2x2Part;
 
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 public class DrillBlockEntity extends TileEntity implements ITickableTileEntity {
@@ -108,28 +110,39 @@ public class DrillBlockEntity extends TileEntity implements ITickableTileEntity 
 
     @Override
     public void tick() {
-        if (this.worldPosition == getMainBlockPos()) {
+        if (level.getBlockState(this.worldPosition).getValue(ModPART) == Mod2x2Part.START) {
             rate = (int) (getTheNumOfOres() * (getBaseDrillSpeed() / 4 * 10));
             if (counter > 0) {
                 counter--;
             } else if (counter <= 0) {
                 increment += rate;
-                Utils.LOGGER.info(rate);
-                Utils.LOGGER.info(increment);
+//                Utils.LOGGER.info("rate: " + rate);
                 if (increment >= 10) {
-//                int pItemInt = this.inventory.getItem(0).getCount();
                     ItemStack newItemStack = new ItemStack(getDrillableItemByBlock(this.level.getBlockState(this.worldPosition.below()).getBlock()), 1);
-//                    this.inventory.addItem(newItemStack);
-//                    this.inventory.setItem(0, newItemStack);
                     this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(pCap -> {
-                        pCap.insertItem(0, newItemStack, false);
+                        if (pCap.getStackInSlot(0).getCount() < pCap.getSlotLimit(0)) {
+                            pCap.insertItem(0, newItemStack, false);
+                        }
+                        addSmock(this.worldPosition);
+                        for (int i = 0; i < 3; i++) {
+                            BlockPos[] blockPoses = getBlockPoses(this.worldPosition, this.getBlockState());
+                            addSmock(blockPoses[i]);
+                        }
                     });
                     increment -= 10;
-                    Utils.LOGGER.info(newItemStack);
                 }
                 counter = 20;
             }
         }
+    }
+
+    public void addSmock(BlockPos pPos) {
+        Random pRand = new Random();
+        double d0 = (double)pPos.getX() + 0.5D + (0.5D - pRand.nextDouble());
+        double d1 = (double)pPos.getY() + 1.0D;
+        double d2 = (double)pPos.getZ() + 0.5D + (0.5D - pRand.nextDouble());
+        double d3 = (double)pRand.nextFloat() * 0.04D;
+        level.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.0D, d3, 0.0D);
     }
 
     /**
@@ -170,5 +183,8 @@ public class DrillBlockEntity extends TileEntity implements ITickableTileEntity 
 
     public double getBaseDrillSpeed() {
         return 0.4;
+    }
+    public int getMaxStackSize() {
+        return 10;
     }
 }
