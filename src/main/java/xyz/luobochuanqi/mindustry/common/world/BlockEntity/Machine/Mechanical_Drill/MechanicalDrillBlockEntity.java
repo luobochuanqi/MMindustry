@@ -5,7 +5,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
@@ -51,10 +50,6 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
             }
         }
         super.tick();
-    }
-
-    public Inventory getInventory() {
-        return inventory;
     }
 
     @Override
@@ -125,6 +120,15 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
                     return pStack;
                 }
                 return super.insertItem(slot, pStack, simulate);
+            }
+
+            @Override
+            public int getSlotLimit(int slot) {
+                if (slot == 0) {
+                    return 10;
+                } else {
+                    return super.getSlotLimit(slot);
+                }
             }
         };
     }

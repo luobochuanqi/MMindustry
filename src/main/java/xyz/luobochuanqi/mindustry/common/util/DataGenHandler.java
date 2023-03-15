@@ -19,13 +19,11 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import xyz.luobochuanqi.mindustry.Utils;
 import xyz.luobochuanqi.mindustry.common.init.BlockRegister;
-import xyz.luobochuanqi.mindustry.common.init.ItemRegister;
-import xyz.luobochuanqi.mindustry.common.world.Block.Ore.OresBlock;
+import xyz.luobochuanqi.mindustry.common.world.Block.Ore.OreBlocks;
 import xyz.luobochuanqi.mindustry.common.world.Item.Ores;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -63,7 +61,7 @@ public class DataGenHandler {
 
         @Override
         protected void addTranslations() {
-            for (OresBlock.OreBlockType myOre : OresBlock.OreBlockType.values()) {
+            for (OreBlocks.OreBlockType myOre : OreBlocks.OreBlockType.values()) {
                 add("block.mindustry." + myOre.toString(), underline2hump(myOre.toString()));
             }
         }

@@ -48,6 +48,10 @@ public class DrillBlockEntity extends TileEntity implements ITickableTileEntity 
         });
     }
 
+    public Inventory getInventory() {
+        return this.inventory;
+    }
+
     /**
      * Get the amount of minerals mined to simulate the mining rate
      * */
@@ -141,8 +145,8 @@ public class DrillBlockEntity extends TileEntity implements ITickableTileEntity 
         double d0 = (double)pPos.getX() + 0.5D + (0.5D - pRand.nextDouble());
         double d1 = (double)pPos.getY() + 1.0D;
         double d2 = (double)pPos.getZ() + 0.5D + (0.5D - pRand.nextDouble());
-        double d3 = (double)pRand.nextFloat() * 0.04D;
-        level.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.0D, d3, 0.0D);
+        double d3 = (double)pRand.nextFloat() * 0.4D;
+        level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, d0, d1, d2, 0.0D, d3, 0.0D);
     }
 
     /**

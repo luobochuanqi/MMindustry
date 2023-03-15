@@ -1,20 +1,14 @@
 package xyz.luobochuanqi.mindustry.common.world.Block.Ore;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.block.BedBlock;
 
-import java.util.List;
-
-public class OresBlock extends Block {
+public class OreBlocks extends Block {
     protected OreBlockType oreType;
 
-    public OresBlock(OreBlockType type) {
-        super(Properties.of(Material.STONE));
+    public OreBlocks(OreBlockType type) {
+        super(Properties.of(Material.STONE).strength(5));
         this.oreType = type;
     }
 
