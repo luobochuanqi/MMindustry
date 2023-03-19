@@ -1,14 +1,14 @@
 package xyz.luobochuanqi.mindustry.common.world.Item;
 
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.item.Item;
+import net.minecraft.util.IStringSerializable;
 import xyz.luobochuanqi.mindustry.client.modTab.ModTab;
 
 public class Ores extends Item {
     protected OreType oreType;
 
     public Ores(OreType type) {
-        super(new Item.Properties().tab(ModTab.modItemGroup));
+        super(new Item.Properties().tab(ModTab.modItemGroup).stacksTo(1000));
         this.oreType = type;
     }
     public OreType getType() {

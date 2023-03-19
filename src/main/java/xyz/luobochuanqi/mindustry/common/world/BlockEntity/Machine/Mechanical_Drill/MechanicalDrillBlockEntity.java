@@ -43,8 +43,6 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
     @Override
     public void tick() {
         if (!this.level.isClientSide) {
-//            this.itemNumber.set(0, this.inventory.getItem(0).getCount());
-
             if (level.getBlockState(worldPosition).getValue(ModPART) != Mod2x2Part.START) {
                 updateData();
             }
@@ -125,7 +123,7 @@ public class MechanicalDrillBlockEntity extends DrillBlockEntity implements ITic
             @Override
             public int getSlotLimit(int slot) {
                 if (slot == 0) {
-                    return 10;
+                    return getMaxStackSize();
                 } else {
                     return super.getSlotLimit(slot);
                 }

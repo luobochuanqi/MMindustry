@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mindustry:item/mechanical_drill_block"
+  }
+}

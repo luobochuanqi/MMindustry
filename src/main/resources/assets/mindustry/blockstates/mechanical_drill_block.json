@@ -1,0 +1,128 @@
+{
+  "variants": {
+    "facing=north,2x2part=start,enabled=true": {
+      "model": "mindustry:block/mechanical_drill_block_3_1"
+    },
+    "facing=north,2x2part=start,enabled=false": {
+      "model": "mindustry:block/mechanical_drill_block_3_0"
+    },
+    "facing=north,2x2part=front,enabled=true": {
+      "model": "mindustry:block/mechanical_drill_block_1_1",
+      "y": 270
+    },
+    "facing=north,2x2part=front,enabled=false": {
+      "model": "mindustry:block/mechanical_drill_block_1_0",
+      "y": 270
+    },
+    "facing=north,2x2part=corner,enabled=true": {
+      "model": "mindustry:block/mechanical_drill_block_2_1",
+      "y": 180
+    },
+    "facing=north,2x2part=corner,enabled=false": {
+      "model": "mindustry:block/mechanical_drill_block_2_0",
+      "y": 180
+    },
+    "facing=north,2x2part=right,enabled=true": {
+      "model": "mindustry:block/mechanical_drill_block_4_1",
+      "y": 90
+    },
+    "facing=north,2x2part=right,enabled=false": {
+      "model": "mindustry:block/mechanical_drill_block_4_0",
+      "y": 90
+    },
+
+    "facing=south,2x2part=start,enabled=true": {
+      "model": "mindustry:block/mechanical_drill_block_3_1",
+      "y": 180
+    },
+    "facing=south,2x2part=start,enabled=false": {
+      "model": "mindustry:block/mechanical_drill_block_3_0",
+      "y": 180
+    },
+    "facing=south,2x2part=front,enabled=true": {
+      "model": "mindustry:block/mechanical_drill_block_1_1",
+      "y": 90
+    },
+    "facing=south,2x2part=front,enabled=false": {
+      "model": "mindustry:block/mechanical_drill_block_1_0",
+      "y": 90
+    },
+    "facing=south,2x2part=corner,enabled=true": {
+      "model": "mindustry:block/mechanical_drill_block_2_1"
+    },
+    "facing=south,2x2part=corner,enabled=false": {
+      "model": "mindustry:block/mechanical_drill_block_2_0"
+    },
+    "facing=south,2x2part=right,enabled=true": {
+      "model": "mindustry:block/mechanical_drill_block_4_1",
+      "y": 270
+    },
+    "facing=south,2x2part=right,enabled=false": {
+      "model": "mindustry:block/mechanical_drill_block_4_0",
+      "y": 270
+    },
+
+    "facing=east,2x2part=start,enabled=true": {
+      "model": "mindustry:block/mechanical_drill_block_3_1",
+      "y": 90
+    },
+    "facing=east,2x2part=start,enabled=false": {
+      "model": "mindustry:block/mechanical_drill_block_3_0",
+      "y": 90
+    },
+    "facing=east,2x2part=front,enabled=true": {
+      "model": "mindustry:block/mechanical_drill_block_1_1"
+    },
+    "facing=east,2x2part=front,enabled=false": {
+      "model": "mindustry:block/mechanical_drill_block_1_0",
+      "y": 90
+    },
+    "facing=east,2x2part=corner,enabled=true": {
+      "model": "mindustry:block/mechanical_drill_block_2_1",
+      "y": 270
+    },
+    "facing=east,2x2part=corner,enabled=false": {
+      "model": "mindustry:block/mechanical_drill_block_2_0",
+      "y": 270
+    },
+    "facing=east,2x2part=right,enabled=true": {
+      "model": "mindustry:block/mechanical_drill_block_4_1",
+      "y": 180
+    },
+    "facing=east,2x2part=right,enabled=false": {
+      "model": "mindustry:block/mechanical_drill_block_4_0",
+      "y": 180
+    },
+
+    "facing=west,2x2part=start,enabled=true": {
+      "model": "mindustry:block/mechanical_drill_block_3_1",
+      "y": 270
+    },
+    "facing=west,2x2part=start,enabled=false": {
+      "model": "mindustry:block/mechanical_drill_block_3_0",
+      "y": 270
+    },
+    "facing=west,2x2part=front,enabled=true": {
+      "model": "mindustry:block/mechanical_drill_block_1_1",
+      "y": 180
+    },
+    "facing=west,2x2part=front,enabled=false": {
+      "model": "mindustry:block/mechanical_drill_block_1_0",
+      "y": 180
+    },
+    "facing=west,2x2part=corner,enabled=true": {
+      "model": "mindustry:block/mechanical_drill_block_2_1",
+      "y": 90
+    },
+    "facing=west,2x2part=corner,enabled=false": {
+      "model": "mindustry:block/mechanical_drill_block_2_0",
+      "y": 90
+    },
+    "facing=west,2x2part=right,enabled=true": {
+      "model": "mindustry:block/mechanical_drill_block_4_1"
+    },
+    "facing=west,2x2part=right,enabled=false": {
+      "model": "mindustry:block/mechanical_drill_block_4_0"
+    }
+  }
+}

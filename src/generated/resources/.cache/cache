@@ -1,7 +1,6 @@
 e871612d150ed329801e42c255fc0e876ab4aa8f assets/mindustry/blockstates/battery_block.json
 2888ff7efbdd8d97b0a997aaf49827745ef2a002 assets/mindustry/blockstates/coal_ore.json
 ef2f4ad40ef8affb75e1df97c4952b5e6b3369ef assets/mindustry/blockstates/copper_ore.json
-e777a9f19547937287de75c2d96b747a31f24439 assets/mindustry/blockstates/drill_block.json
 bb50461e0f0dd13bf2d276327442245c515c88ab assets/mindustry/blockstates/lead_ore.json
 7236c16d938a18b1c0e2fc34c6b25d0b40f9b23a assets/mindustry/blockstates/scrap_ore.json
 f859f052583cb9ed3c449ed790683fe11c1c6b93 assets/mindustry/blockstates/thorium_ore.json
@@ -9,7 +8,6 @@ d32e217d836f379e02621628820438495b26fe86 assets/mindustry/blockstates/titanium_o
 4bbe29a31e0975d9102be6071c5d01b9e090d327 assets/mindustry/models/block/battery_block.json
 6d1b9ddb606e120590272e9cb88e3b847f433c91 assets/mindustry/models/block/coal_ore.json
 5cc26a41c4af3643895e36d6f19d49769fb07c36 assets/mindustry/models/block/copper_ore.json
-ed1282b15f431b32e68eac7e9db66c2bd514183c assets/mindustry/models/block/drill_block.json
 09d4329b0f8e4ee95b65eec15032f5cc236b435b assets/mindustry/models/block/lead_ore.json
 ae32b306c4a8b8292245cde56cd05db522558f91 assets/mindustry/models/block/scrap_ore.json
 034156052902b5ab9cbe2683370997b384494240 assets/mindustry/models/block/thorium_ore.json

@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -30,6 +31,7 @@ import java.util.Set;
 
 public class DrillBlockEntity extends TileEntity implements ITickableTileEntity {
     public static final EnumProperty<Mod2x2Part> ModPART = Utils.Mod2x2PART;
+    public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public Inventory inventory = new Inventory(1);
     public int increment = 0;

@@ -8,8 +8,10 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
@@ -19,13 +21,14 @@ import xyz.luobochuanqi.mindustry.common.util.Mod2x2Part;
 
 import javax.annotation.Nullable;
 
-public class Mod2x2Block extends HorizontalBlock {
+public abstract class Mod2x2Block extends HorizontalBlock {
     public static final EnumProperty<Mod2x2Part> ModPART = Utils.Mod2x2PART;
+    public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
     public BlockPos MainBlockPos;
 
     protected Mod2x2Block(Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(ModPART, Mod2x2Part.START));
+        this.registerDefaultState(this.stateDefinition.any().setValue(ModPART, Mod2x2Part.START).setValue(ENABLED, true));
     }
 
     /**
@@ -45,7 +48,7 @@ public class Mod2x2Block extends HorizontalBlock {
     }
 
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING, ModPART);
+        pBuilder.add(FACING, ModPART, ENABLED);
     }
 
     /**
