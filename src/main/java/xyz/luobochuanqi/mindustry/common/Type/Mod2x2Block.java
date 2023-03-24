@@ -28,11 +28,11 @@ public abstract class Mod2x2Block extends HorizontalBlock {
 
     protected Mod2x2Block(Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(ModPART, Mod2x2Part.START).setValue(ENABLED, true));
+        if (is2x2Block()) this.registerDefaultState(this.stateDefinition.any().setValue(ModPART, Mod2x2Part.START).setValue(ENABLED, true));
     }
 
     /**
-     * Get the pos of each child-block
+     * @return The pos of each child-block
      * */
     public static BlockPos[] getBlockPoses(BlockPos pPos, BlockState pState) {
         Direction direction = pState.getValue(FACING);
@@ -48,7 +48,7 @@ public abstract class Mod2x2Block extends HorizontalBlock {
     }
 
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING, ModPART, ENABLED);
+        if (is2x2Block()) pBuilder.add(FACING, ModPART, ENABLED);
     }
 
     /**
@@ -56,20 +56,24 @@ public abstract class Mod2x2Block extends HorizontalBlock {
      */
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext pContext) {
-        Direction direction = pContext.getHorizontalDirection();
-        BlockPos blockPos = pContext.getClickedPos();
-        boolean flag = true;
-        for (int i = 1; i <= 3; i++) {
-            blockPos = blockPos.relative(direction);
-            if (!pContext.getLevel().getBlockState(blockPos).canBeReplaced(pContext)) {
-                flag = false;
+        if (is2x2Block()) {
+            Direction direction = pContext.getHorizontalDirection();
+            BlockPos blockPos = pContext.getClickedPos();
+            boolean flag = true;
+            for (int i = 1; i <= 3; i++) {
+                blockPos = blockPos.relative(direction);
+                if (!pContext.getLevel().getBlockState(blockPos).canBeReplaced(pContext)) {
+                    flag = false;
+                }
+                direction = direction.getClockWise();
             }
-            direction = direction.getClockWise();
+            if (flag) {
+                return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection());
+            } else {
+                return null;
+            }
         }
-        if (flag) {
-            return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection());
-        }
-        return null;
+        return super.getStateForPlacement(pContext);
     }
 
     /**
@@ -77,18 +81,20 @@ public abstract class Mod2x2Block extends HorizontalBlock {
      */
     public void setPlacedBy(World pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
         super.setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
-        if (!pLevel.isClientSide) {
-            BlockPos nextblockpos = pPos;
-            BlockState nextState = pState;
-            this.MainBlockPos = pPos;
-            // Place the child-blocks clockwise
-            for (int i = 1; i <= 3; i++) {
-                nextblockpos = nextblockpos.relative(nextState.getValue(FACING));
-                pLevel.setBlock(nextblockpos, nextState.setValue(ModPART, Mod2x2Part.valueOf(i)).rotate(Rotation.CLOCKWISE_90), 3);
-                nextState = pLevel.getBlockState(nextblockpos);
+        if (is2x2Block()) {
+            if (!pLevel.isClientSide) {
+                BlockPos nextblockpos = pPos;
+                BlockState nextState = pState;
+                this.MainBlockPos = pPos;
+                // Place the child-blocks clockwise
+                for (int i = 1; i <= 3; i++) {
+                    nextblockpos = nextblockpos.relative(nextState.getValue(FACING));
+                    pLevel.setBlock(nextblockpos, nextState.setValue(ModPART, Mod2x2Part.valueOf(i)).rotate(Rotation.CLOCKWISE_90), 3);
+                    nextState = pLevel.getBlockState(nextblockpos);
+                }
+                pLevel.blockUpdated(pPos, Blocks.AIR);
+                pState.updateNeighbourShapes(pLevel, pPos, 3);
             }
-            pLevel.blockUpdated(pPos, Blocks.AIR);
-            pState.updateNeighbourShapes(pLevel, pPos, 3);
         }
     }
 
@@ -97,16 +103,22 @@ public abstract class Mod2x2Block extends HorizontalBlock {
      * this block
      */
     public void playerWillDestroy(World pLevel, BlockPos pPos, BlockState pState, PlayerEntity pPlayer) {
-        if (!pLevel.isClientSide) {
-            BlockPos[] blockPoses = getBlockPoses(pPos, pState);
-            for (int i = 0; i < 3; i++) {
-                BlockState blockstate = pLevel.getBlockState(blockPoses[i]);
-                if (blockstate.getBlock() == this) {
-                    pLevel.setBlock(blockPoses[i], Blocks.AIR.defaultBlockState(), 35);
-                    pLevel.levelEvent(pPlayer, 2001, blockPoses[i], Block.getId(blockstate));
+        if (is2x2Block()) {
+            if (!pLevel.isClientSide) {
+                BlockPos[] blockPoses = getBlockPoses(pPos, pState);
+                for (int i = 0; i < 3; i++) {
+                    BlockState blockstate = pLevel.getBlockState(blockPoses[i]);
+                    if (blockstate.getBlock() == this) {
+                        pLevel.setBlock(blockPoses[i], Blocks.AIR.defaultBlockState(), 35);
+                        pLevel.levelEvent(pPlayer, 2001, blockPoses[i], Block.getId(blockstate));
+                    }
                 }
             }
         }
         super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
+    }
+
+    public boolean is2x2Block(){
+        return true;
     }
 }

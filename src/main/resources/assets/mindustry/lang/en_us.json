@@ -1,5 +1,5 @@
 {
-  "message.mindustry.cs": "hello",
+  "message.mindustry.cs": "hello %1$s",
 
   "item.mindustry.blast_compound": "Blast Compound",
   "item.mindustry.coal": "Coal",

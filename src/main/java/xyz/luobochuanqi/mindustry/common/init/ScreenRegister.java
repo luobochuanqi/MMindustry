@@ -4,14 +4,14 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import xyz.luobochuanqi.mindustry.common.world.BlockEntity.Machine.Mechanical_Drill.MechanicalDrillBlockScreen;
+import xyz.luobochuanqi.mindustry.client.GUI.OneItemSlotScreen;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ScreenRegister {
     @SubscribeEvent
     public static void onClientSetupEvent(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            ScreenManager.register(ContainerRegister.mechanical_drill_block_container.get(), MechanicalDrillBlockScreen::new);
+            ScreenManager.register(ContainerRegister.one_item_slot_container.get(), OneItemSlotScreen::new);
         });
     }
 }

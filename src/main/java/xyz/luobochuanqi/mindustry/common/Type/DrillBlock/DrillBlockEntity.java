@@ -18,22 +18,29 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 import xyz.luobochuanqi.mindustry.Utils;
 import xyz.luobochuanqi.mindustry.common.init.BlockRegister;
 import xyz.luobochuanqi.mindustry.common.init.ItemRegister;
 import xyz.luobochuanqi.mindustry.common.util.Mod2x2Part;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public class DrillBlockEntity extends TileEntity implements ITickableTileEntity {
+public abstract class DrillBlockEntity extends TileEntity implements ITickableTileEntity {
     public static final EnumProperty<Mod2x2Part> ModPART = Utils.Mod2x2PART;
     public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public Inventory inventory = new Inventory(1);
+    private LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
     public int increment = 0;
     public int rate;
     public int counter = 0;
@@ -50,15 +57,12 @@ public class DrillBlockEntity extends TileEntity implements ITickableTileEntity 
         });
     }
 
-    public Inventory getInventory() {
-        return this.inventory;
-    }
-
     /**
-     * Get the amount of minerals mined to simulate the mining rate
+     * @return the amount of minerals mined to simulate the mining rate
      * */
     public int getTheNumOfOres() {
         int num = 0;
+        final ItemStack[] itemStack = new ItemStack[1];
         Block block2 = null;
         Block block1 = this.level.getBlockState(this.worldPosition.below()).getBlock();
         BlockPos[] blockPoses = getBlockPoses(this.worldPosition, this.getBlockState());
@@ -74,21 +78,23 @@ public class DrillBlockEntity extends TileEntity implements ITickableTileEntity 
                     num++;
                 }
             }
+            this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(cap -> {
+                itemStack[0] = cap.getStackInSlot(0);
+            });
+            if (getDrillableItemByBlock(block) != itemStack[0].getItem() && !itemStack[0].isEmpty()) {
+                num = 0;
+                continue;
+            }
             if (num >= 1) {
                 block2 = block;
                 break;
             }
         }
-        if (getDrillableItemByBlock(block2) == this.inventory.getItem(0).getItem() || this.inventory.isEmpty()) {
-            return num;
-        } else {
-            num = 0;
-        }
         return num;
     }
 
     /**
-     * Get the pos of each child-block
+     * @return the pos of each child-block
      * */
     public BlockPos[] getBlockPoses(BlockPos pPos, BlockState pState) {
         Direction direction = pState.getValue(FACING);
@@ -116,13 +122,13 @@ public class DrillBlockEntity extends TileEntity implements ITickableTileEntity 
 
     @Override
     public void tick() {
-        if (level.getBlockState(this.worldPosition).getValue(ModPART) == Mod2x2Part.START) {
+        if (level.getBlockState(this.worldPosition).getValue(ModPART) == Mod2x2Part.START && !this.level.isClientSide) {
             rate = (int) (getTheNumOfOres() * (getBaseDrillSpeed() / 4 * 10));
             if (counter > 0) {
                 counter--;
             } else if (counter <= 0) {
                 increment += rate;
-//                Utils.LOGGER.info("rate: " + rate);
+                Utils.LOGGER.info("rate: " + rate + "num：" + getTheNumOfOres());
                 if (increment >= 10) {
                     ItemStack newItemStack = new ItemStack(getDrillableItemByBlock(this.level.getBlockState(this.worldPosition.below()).getBlock()), 1);
                     this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(pCap -> {
@@ -187,9 +193,73 @@ public class DrillBlockEntity extends TileEntity implements ITickableTileEntity 
         } else return Items.AIR;
     }
 
+    @Override
+    public void load(BlockState pBlockState, CompoundNBT pNBT) {
+        CompoundNBT invTag = pNBT.getCompound("inv");
+        handler.ifPresent(h -> ((INBTSerializable<CompoundNBT>) h).deserializeNBT(invTag));
+        super.load(pBlockState, pNBT);
+    }
+
+    @Override
+    public CompoundNBT save(CompoundNBT pNBT) {
+        handler.ifPresent(h -> {
+            CompoundNBT compound = ((INBTSerializable<CompoundNBT>) h).serializeNBT();
+            pNBT.put("inv", compound);
+        });
+        return super.save(pNBT);
+    }
+
+    private IItemHandler createHandler() {
+        return new ItemStackHandler(1) {
+            @Override
+            public boolean isItemValid(int slot, @Nonnull ItemStack pStack) {
+                for (Item item : getDrillableItem()) {
+                    if (pStack.getItem() == item) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            @Nonnull
+            @Override
+            public ItemStack insertItem(int slot, @Nonnull ItemStack pStack, boolean simulate) {
+                boolean flag = false;
+                for (Item item : getDrillableItem()) {
+                    if (pStack.getItem() == item) {
+                        flag = true;
+                    }
+                }
+                if (!flag) {
+                    return pStack;
+                }
+                return super.insertItem(slot, pStack, simulate);
+            }
+
+            @Override
+            public int getSlotLimit(int slot) {
+                if (slot == 0) {
+                    return getMaxStackSize();
+                } else {
+                    return super.getSlotLimit(slot);
+                }
+            }
+        };
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> pCap, @Nullable Direction side) {
+        if (pCap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return handler.cast();
+        }
+        return super.getCapability(pCap, side);
+    }
+
     public double getBaseDrillSpeed() {
         return 0.4;
     }
+
     public int getMaxStackSize() {
         return 10;
     }

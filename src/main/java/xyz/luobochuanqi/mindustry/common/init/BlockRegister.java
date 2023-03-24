@@ -8,8 +8,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import xyz.luobochuanqi.mindustry.Utils;
 import xyz.luobochuanqi.mindustry.common.world.Block.Ore.OreBlocks;
-import xyz.luobochuanqi.mindustry.common.world.BlockEntity.BatteryBlockEntity.BatteryBlock;
 import xyz.luobochuanqi.mindustry.common.world.BlockEntity.Machine.Mechanical_Drill.MechanicalDrillBlock;
+import xyz.luobochuanqi.mindustry.common.world.BlockEntity.Power.BatteryBlock.BatteryBlock;
+import xyz.luobochuanqi.mindustry.common.world.BlockEntity.Power.CombustionGenerator.CombustionGeneratorBlock;
 
 public class BlockRegister {
     public static final DeferredRegister<Block> BLOCKS =
@@ -37,6 +38,9 @@ public class BlockRegister {
     public static final RegistryObject<Block> battery_block =
             BLOCKS.register("battery_block",
                     () -> new BatteryBlock(AbstractBlock.Properties.of(Material.STONE).strength(5)));
+    public static final RegistryObject<Block> combustion_generator_block =
+            BLOCKS.register("combustion_generator_block",
+                    () -> new CombustionGeneratorBlock(AbstractBlock.Properties.of(Material.STONE).strength(5)));
 
 //    public static final RegistryObject<Block> drill_block =
 //            BLOCKS.register("drill_block",

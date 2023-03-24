@@ -1,4 +1,4 @@
-package xyz.luobochuanqi.mindustry.common.world.BlockEntity.Machine.Mechanical_Drill;
+package xyz.luobochuanqi.mindustry.client.GUI;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -7,36 +7,22 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIntArray;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillBlockSlot;
-import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillContainerItemNumber;
 import xyz.luobochuanqi.mindustry.common.init.ContainerRegister;
 
-public class MechanicalDrillBlockContainer extends Container {
-    private TileEntity tileEntity;
-    private PlayerEntity playerEntity;
-    private IItemHandler internal;
-    private DrillContainerItemNumber itemNumber;
+public class OneItemSlotContainer extends Container {
+    private final TileEntity tileEntity;
 
-    public MechanicalDrillBlockContainer(int pContainerId, World pLevel, BlockPos pPos, PlayerInventory pPlayerInventory, DrillContainerItemNumber pItemNumber) {
-        super(ContainerRegister.mechanical_drill_block_container.get(), pContainerId);
-        this.itemNumber = pItemNumber;
+    public OneItemSlotContainer(int pContainerId, World pLevel, BlockPos pPos, PlayerInventory pPlayerInventory) {
+        super(ContainerRegister.one_item_slot_container.get(), pContainerId);
         this.tileEntity = pLevel.getBlockEntity(pPos);
-        MechanicalDrillBlockEntity mechanicalDrillBlockEntity = (MechanicalDrillBlockEntity) pLevel.getBlockEntity(pPos);
-        mechanicalDrillBlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-            this.addSlot(new DrillBlockSlot(capability, 0, 79, 35));
+        TileEntity tileEntity = pLevel.getBlockEntity(pPos);
+        tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+            this.addSlot(new Max10Slot(capability, 0, 79, 35));
         });
         layoutPlayerInventorySlots(pPlayerInventory, 8, 84);
-    }
-
-    @Override
-    public boolean stillValid(PlayerEntity pPlayer) {
-        return true;
-//        return IWorldPosCallable.create(tileEntity.getLevel(), tileEntity.getBlockPos());
     }
 
     @Override
@@ -71,6 +57,11 @@ public class MechanicalDrillBlockContainer extends Container {
         return itemstack;
     }
 
+    @Override
+    public boolean stillValid(PlayerEntity pPlayer) {
+        return true;
+    }
+
     private int addSlotBox(IInventory inventory, int index, int x, int y, int horAmount, int dx, int verAmount, int dy) {
         for (int i = 0; i < verAmount; i++) {
             index = addSlotRange(inventory, index, x, y, horAmount, dx);
@@ -95,9 +86,5 @@ public class MechanicalDrillBlockContainer extends Container {
         // Hotbar
         topRow += 58;
         addSlotRange(inventory, 0, leftCol, topRow, 9, 18);
-    }
-
-    public IIntArray getIntArray() {
-        return itemNumber;
     }
 }

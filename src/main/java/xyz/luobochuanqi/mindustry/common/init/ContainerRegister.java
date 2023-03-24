@@ -9,15 +9,19 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import xyz.luobochuanqi.mindustry.Utils;
-import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillContainerItemNumber;
-import xyz.luobochuanqi.mindustry.common.world.BlockEntity.Machine.Mechanical_Drill.MechanicalDrillBlockContainer;
+import xyz.luobochuanqi.mindustry.client.GUI.OneItemSlotContainer;
 
 public class ContainerRegister {
     public static final DeferredRegister<ContainerType<?>> CONTAINERS =
             DeferredRegister.create(ForgeRegistries.CONTAINERS, Utils.ModID);
 
-    public static final RegistryObject<ContainerType<MechanicalDrillBlockContainer>> mechanical_drill_block_container =
-            CONTAINERS.register("mechanical_drill_block_container",
+//    public static final RegistryObject<ContainerType<DrillBlockContainer>> drill_block_container =
+//            CONTAINERS.register("drill_block_container",
+//                    () -> IForgeContainerType.create((int windowId, PlayerInventory playerInv, PacketBuffer extraData)
+//                            -> new DrillBlockContainer(windowId, Minecraft.getInstance().level, extraData.readBlockPos(), playerInv)));
+
+    public static final RegistryObject<ContainerType<OneItemSlotContainer>> one_item_slot_container =
+            CONTAINERS.register("one_item_slot_container",
                     () -> IForgeContainerType.create((int windowId, PlayerInventory playerInv, PacketBuffer extraData)
-                            -> new MechanicalDrillBlockContainer(windowId, Minecraft.getInstance().level, extraData.readBlockPos(), playerInv, new DrillContainerItemNumber())));
+                            -> new OneItemSlotContainer(windowId, Minecraft.getInstance().level, extraData.readBlockPos(), playerInv)));
 }

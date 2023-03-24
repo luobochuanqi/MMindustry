@@ -6,7 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.material.PushReaction;
 import xyz.luobochuanqi.mindustry.common.Type.Mod2x2Block;
 
-public class DrillBlock extends Mod2x2Block {
+public abstract class DrillBlock extends Mod2x2Block {
     public DrillBlock(AbstractBlock.Properties pProperties) {
         super(pProperties);
     }

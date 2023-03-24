@@ -1,5 +1,5 @@
 {
-  "message.mindustry.cs": "你好",
+  "message.mindustry.cs": "你好 %1$s",
 
   "item.mindustry.blast_compound": "爆炸混合物",
   "item.mindustry.coal": "煤炭",

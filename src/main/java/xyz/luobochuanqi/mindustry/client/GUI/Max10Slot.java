@@ -1,13 +1,13 @@
-package xyz.luobochuanqi.mindustry.common.Type.DrillBlock;
+package xyz.luobochuanqi.mindustry.client.GUI;
 
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class DrillBlockSlot extends SlotItemHandler {
+public class Max10Slot extends SlotItemHandler {
     private final IItemHandler itemHandler;
     private final int index;
 
-    public DrillBlockSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+    public Max10Slot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
         super(itemHandler, index, xPosition, yPosition);
         this.itemHandler = itemHandler;
         this.index = index;
