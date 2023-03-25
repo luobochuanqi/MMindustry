@@ -18,7 +18,7 @@ public enum Mod2x2Part implements IStringSerializable {
         return values()[ordinal];
     }
 
-        public String toString() {
+    public String toString() {
         return this.name;
     }
 

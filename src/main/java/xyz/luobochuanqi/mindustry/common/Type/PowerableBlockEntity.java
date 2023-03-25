@@ -25,14 +25,14 @@ public abstract class PowerableBlockEntity extends TileEntity {
     @Override
     public void load(BlockState pBlockState, CompoundNBT pTag) {
         CompoundNBT energyTag = pTag.getCompound("energy");
-        energy.ifPresent(nbt -> ((INBTSerializable<CompoundNBT>)nbt).deserializeNBT(energyTag));
+        energy.ifPresent(nbt -> ((INBTSerializable<CompoundNBT>) nbt).deserializeNBT(energyTag));
         super.load(pBlockState, pTag);
     }
 
     @Override
     public CompoundNBT save(CompoundNBT pTag) {
         energy.ifPresent(nbt -> {
-            CompoundNBT compound = ((INBTSerializable<CompoundNBT>)nbt).serializeNBT();
+            CompoundNBT compound = ((INBTSerializable<CompoundNBT>) nbt).serializeNBT();
             pTag.put("energy", compound);
         });
         return super.save(pTag);

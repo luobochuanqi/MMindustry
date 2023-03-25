@@ -39,7 +39,7 @@ public abstract class GeneratorBlockEntity extends PowerableBlockEntity implemen
             if (counter <= 0) {
                 energy.ifPresent(cap -> {
                     if (cap.canReceive()) {
-                        ((CustomEnergyStorage)cap).receiveEnergy(getBasePowerGeneration(), false);
+                        ((CustomEnergyStorage) cap).receiveEnergy(getBasePowerGeneration(), false);
                     }
                 });
             }
@@ -69,7 +69,7 @@ public abstract class GeneratorBlockEntity extends PowerableBlockEntity implemen
     @Override
     public void load(BlockState pBlockState, CompoundNBT pTag) {
         CompoundNBT invTag = pTag.getCompound("inv");
-        handler.ifPresent(nbt -> ((INBTSerializable<CompoundNBT>)nbt).deserializeNBT(invTag));
+        handler.ifPresent(nbt -> ((INBTSerializable<CompoundNBT>) nbt).deserializeNBT(invTag));
         counter = pTag.getInt("counter");
         super.load(pBlockState, pTag);
     }
@@ -77,7 +77,7 @@ public abstract class GeneratorBlockEntity extends PowerableBlockEntity implemen
     @Override
     public CompoundNBT save(CompoundNBT pTag) {
         handler.ifPresent(nbt -> {
-            CompoundNBT compound = ((INBTSerializable<CompoundNBT>)nbt).serializeNBT();
+            CompoundNBT compound = ((INBTSerializable<CompoundNBT>) nbt).serializeNBT();
             pTag.put("inv", compound);
         });
         pTag.putInt("counter", counter);
@@ -136,7 +136,7 @@ public abstract class GeneratorBlockEntity extends PowerableBlockEntity implemen
 
     /**
      * Return the Set of minerals that can generate power
-     * */
+     */
     public Set<Item> getPowerGeneratedItem() {
         Set<Item> ItemSet = new HashSet<>();
         ItemSet.add(ItemRegister.coal.get());

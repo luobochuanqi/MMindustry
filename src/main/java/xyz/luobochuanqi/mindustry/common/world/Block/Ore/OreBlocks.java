@@ -26,6 +26,7 @@ public class OreBlocks extends Block {
 
 
         private final String name;
+
         OreBlockType(String name) {
             this.name = name;
         }

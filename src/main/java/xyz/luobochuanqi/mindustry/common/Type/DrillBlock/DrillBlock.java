@@ -19,6 +19,7 @@ public abstract class DrillBlock extends Mod2x2Block {
     public PushReaction getPistonPushReaction(BlockState pState) {
         return PushReaction.IGNORE;
     }
+
     public BlockRenderType getRenderShape(BlockState pState) {
         return BlockRenderType.MODEL;
     }

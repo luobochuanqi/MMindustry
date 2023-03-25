@@ -11,6 +11,7 @@ public class Ores extends Item {
         super(new Item.Properties().tab(ModTab.modItemGroup).stacksTo(1000));
         this.oreType = type;
     }
+
     public OreType getType() {
         return this.oreType;
     }
@@ -35,7 +36,8 @@ public class Ores extends Item {
 
 
         private final String name;
-//        private final String nameCN;
+
+        //        private final String nameCN;
         OreType(String name) {
             this.name = name;
 //            this.nameCN = nameCN;

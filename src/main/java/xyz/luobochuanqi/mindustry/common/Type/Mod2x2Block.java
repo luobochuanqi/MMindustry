@@ -28,12 +28,13 @@ public abstract class Mod2x2Block extends HorizontalBlock {
 
     protected Mod2x2Block(Properties pProperties) {
         super(pProperties);
-        if (is2x2Block()) this.registerDefaultState(this.stateDefinition.any().setValue(ModPART, Mod2x2Part.START).setValue(ENABLED, true));
+        if (is2x2Block())
+            this.registerDefaultState(this.stateDefinition.any().setValue(ModPART, Mod2x2Part.START).setValue(ENABLED, true));
     }
 
     /**
      * @return The pos of each child-block
-     * */
+     */
     public static BlockPos[] getBlockPoses(BlockPos pPos, BlockState pState) {
         Direction direction = pState.getValue(FACING);
         BlockPos[] blockPoses = new BlockPos[5];
@@ -118,7 +119,7 @@ public abstract class Mod2x2Block extends HorizontalBlock {
         super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
     }
 
-    public boolean is2x2Block(){
+    public boolean is2x2Block() {
         return true;
     }
 }

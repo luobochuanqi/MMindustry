@@ -22,7 +22,7 @@ public class ItemRegister {
                     () -> new BlockItem(BlockRegister.combustion_generator_block.get(),
                             new Item.Properties().tab(ModTab.modItemGroup)));
 
-//    public static final RegistryObject<Item> drill_block =
+    //    public static final RegistryObject<Item> drill_block =
 //            ITEMS.register("drill_block",
 //                    () -> new BlockItem(BlockRegister.drill_block.get(),
 //                            new Item.Properties().tab(ModTab.modItemGroup)));

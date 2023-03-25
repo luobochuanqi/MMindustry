@@ -49,7 +49,7 @@ public class DataGenHandler {
         if (event.includeServer()) {
             //recipes,advancements,tags...
         }
-        if (event.includeReports()){
+        if (event.includeReports()) {
             //world
         }
     }
@@ -71,7 +71,7 @@ public class DataGenHandler {
             Matcher matcher = Pattern.compile(regex).matcher(str);
             while (matcher.find()) {
                 String target = matcher.group(1);
-                str = str.replaceAll("_"+target, " " + target.toUpperCase());
+                str = str.replaceAll("_" + target, " " + target.toUpperCase());
             }
             str = str.substring(0, 1).toUpperCase() + str.substring(1);
             return str;
@@ -131,6 +131,7 @@ public class DataGenHandler {
     public static class ModOreBlockStateProvider extends BlockStateProvider {
         private DeferredRegister<? extends Block> deferredRegister = BlockRegister.BLOCKS;
         private final Set<Block> skipBlocks = new HashSet<>();
+
         public ModOreBlockStateProvider(DataGenerator gen, String modid, ExistingFileHelper exFileHelper) {
             super(gen, modid, exFileHelper);
             this.deferredRegister = deferredRegister;
@@ -190,6 +191,7 @@ public class DataGenHandler {
             items.removeAll(skipItems);
             registerItem(items);
         }
+
         protected void skipItems(Item... items) {
             Collections.addAll(skipItems, items);
         }

@@ -25,19 +25,19 @@ public class WiresRenderer {
     }
 
     private static void blueLine(IVertexBuilder builder, Matrix4f positionMatrix, BlockPos pos, float dx1, float dy1, float dz1, float dx2, float dy2, float dz2) {
-        builder.vertex(positionMatrix, pos.getX()+dx1, pos.getY()+dy1, pos.getZ()+dz1)
+        builder.vertex(positionMatrix, pos.getX() + dx1, pos.getY() + dy1, pos.getZ() + dz1)
                 .color(0.0f, 0.0f, 1.0f, 1.0f)
                 .endVertex();
-        builder.vertex(positionMatrix, pos.getX()+dx2, pos.getY()+dy2, pos.getZ()+dz2)
+        builder.vertex(positionMatrix, pos.getX() + dx2, pos.getY() + dy2, pos.getZ() + dz2)
                 .color(0.0f, 0.0f, 1.0f, 1.0f)
                 .endVertex();
     }
 
     private static void powerLine(IVertexBuilder builder, Matrix4f positionMatrix, BlockPos pos1, BlockPos pos2, float dx1, float dy1, float dz1, float dx2, float dy2, float dz2) {
-        builder.vertex(positionMatrix, pos1.getX()+dx1, pos1.getY()+dy1, pos1.getZ()+dz1)
+        builder.vertex(positionMatrix, pos1.getX() + dx1, pos1.getY() + dy1, pos1.getZ() + dz1)
                 .color(1.0f, 0.0f, 0.0f, 1.0f)
                 .endVertex();
-        builder.vertex(positionMatrix, pos2.getX()+dx2, pos2.getY()+dy2, pos2.getZ()+dz2)
+        builder.vertex(positionMatrix, pos2.getX() + dx2, pos2.getY() + dy2, pos2.getZ() + dz2)
                 .color(1.0f, 0.0f, 0.0f, 1.0f)
                 .endVertex();
     }

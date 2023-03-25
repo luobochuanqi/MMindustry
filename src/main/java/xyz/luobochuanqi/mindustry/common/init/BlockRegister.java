@@ -42,7 +42,7 @@ public class BlockRegister {
             BLOCKS.register("combustion_generator_block",
                     () -> new CombustionGeneratorBlock(AbstractBlock.Properties.of(Material.STONE).strength(5)));
 
-//    public static final RegistryObject<Block> drill_block =
+    //    public static final RegistryObject<Block> drill_block =
 //            BLOCKS.register("drill_block",
 //                    () -> new DrillBlock(AbstractBlock.Properties.of(Material.STONE).strength(5)));
     public static final RegistryObject<Block> mechanical_drill_block =

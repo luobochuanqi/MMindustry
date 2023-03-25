@@ -44,6 +44,7 @@ public abstract class DrillBlockEntity extends TileEntity implements ITickableTi
     public int increment = 0;
     public int rate;
     public int counter = 0;
+
     public DrillBlockEntity(TileEntityType<?> pType) {
         super(pType);
     }
@@ -51,15 +52,15 @@ public abstract class DrillBlockEntity extends TileEntity implements ITickableTi
     public void updateData() {
         this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(Cap -> {
             this.level.getBlockEntity(getMainBlockPos()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(pCap -> {
-                CompoundNBT pNBT = ((INBTSerializable<CompoundNBT>)pCap).serializeNBT();
-                ((INBTSerializable<CompoundNBT>)Cap).deserializeNBT(pNBT);
+                CompoundNBT pNBT = ((INBTSerializable<CompoundNBT>) pCap).serializeNBT();
+                ((INBTSerializable<CompoundNBT>) Cap).deserializeNBT(pNBT);
             });
         });
     }
 
     /**
      * @return the amount of minerals mined to simulate the mining rate
-     * */
+     */
     public int getTheNumOfOres() {
         int num = 0;
         final ItemStack[] itemStack = new ItemStack[1];
@@ -95,7 +96,7 @@ public abstract class DrillBlockEntity extends TileEntity implements ITickableTi
 
     /**
      * @return the pos of each child-block
-     * */
+     */
     public BlockPos[] getBlockPoses(BlockPos pPos, BlockState pState) {
         Direction direction = pState.getValue(FACING);
         BlockPos[] blockPoses = new BlockPos[5];
@@ -150,16 +151,16 @@ public abstract class DrillBlockEntity extends TileEntity implements ITickableTi
 
     public void addSmock(BlockPos pPos) {
         Random pRand = new Random();
-        double d0 = (double)pPos.getX() + 0.5D + (0.5D - pRand.nextDouble());
-        double d1 = (double)pPos.getY() + 1.0D;
-        double d2 = (double)pPos.getZ() + 0.5D + (0.5D - pRand.nextDouble());
-        double d3 = (double)pRand.nextFloat() * 0.4D;
+        double d0 = (double) pPos.getX() + 0.5D + (0.5D - pRand.nextDouble());
+        double d1 = (double) pPos.getY() + 1.0D;
+        double d2 = (double) pPos.getZ() + 0.5D + (0.5D - pRand.nextDouble());
+        double d3 = (double) pRand.nextFloat() * 0.4D;
         level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, d0, d1, d2, 0.0D, d3, 0.0D);
     }
 
     /**
      * Return the Set of minerals that can be mined
-     * */
+     */
     public Set<Item> getDrillableItem() {
         Set<Item> ItemSet = new HashSet<>();
         ItemSet.add(ItemRegister.sand.get());
@@ -168,7 +169,7 @@ public abstract class DrillBlockEntity extends TileEntity implements ITickableTi
 
     /**
      * Return the Set of minerals that can be mined
-     * */
+     */
     public Set<Block> getDrillableBlock() {
         Set<Block> BlockSet = new HashSet<>();
         BlockSet.add(Blocks.SAND);

@@ -20,7 +20,7 @@ public class TileEntityRegister {
             TILE_ENTITIES.register("combustion_generator_block_entity", () -> TileEntityType.Builder.of(CombustionGeneratorBlockEntity::new,
                     BlockRegister.combustion_generator_block.get()).build(null));
 
-//    public static final RegistryObject<TileEntityType<DrillBlockEntity>> drillBlockEntity =
+    //    public static final RegistryObject<TileEntityType<DrillBlockEntity>> drillBlockEntity =
 //            TILE_ENTITIES.register("drill_block_entity", () -> TileEntityType.Builder.of(DrillBlockEntity::new,
 //                    BlockRegister.drill_block.get()).build(null));
     public static final RegistryObject<TileEntityType<MechanicalDrillBlockEntity>> mechanicalDrillBlockEntity =

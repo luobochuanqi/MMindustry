@@ -32,7 +32,7 @@ public abstract class GeneratorBlock extends Mod2x2Block {
 
     public int getEnergy(World pLevel, BlockPos pPos) {
         pLevel.getBlockEntity(pPos).getCapability(CapabilityEnergy.ENERGY, null).ifPresent(cap -> {
-            energy = ((CustomEnergyStorage)cap).getEnergyStored();
+            energy = ((CustomEnergyStorage) cap).getEnergyStored();
         });
         return energy;
     }
@@ -41,7 +41,7 @@ public abstract class GeneratorBlock extends Mod2x2Block {
         return true;
     }
 
-    public boolean is2x2Block(){
+    public boolean is2x2Block() {
         return false;
     }
 }
