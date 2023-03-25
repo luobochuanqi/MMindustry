@@ -2,6 +2,7 @@ package xyz.luobochuanqi.mindustry.common.Type;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -14,12 +15,53 @@ import xyz.luobochuanqi.mindustry.common.util.CustomEnergyStorage;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public abstract class PowerableBlockEntity extends TileEntity {
+public abstract class PowerableBlockEntity extends TileEntity implements ITickableTileEntity {
     public LazyOptional<IEnergyStorage> energy = LazyOptional.of(this::createEnergy);
 
     public PowerableBlockEntity(TileEntityType<?> pType) {
         super(pType);
+    }
+
+    @Override
+    public void tick() {
+        if (!level.isClientSide) {
+            sendOutPower();
+        }
+    }
+
+    /**
+     * (if there is any power present in )
+     * loop over all six directions and check
+     * if there is a power receiver there that is willing to get power from us.
+     * */
+    private void sendOutPower() {
+        energy.ifPresent(energy -> {
+            AtomicInteger capacity = new AtomicInteger(energy.getEnergyStored());
+            if (capacity.get() > 0) {
+                for (Direction direction : Direction.values()) {
+                    TileEntity te = level.getBlockEntity(worldPosition.relative(direction));
+                    if (te != null) {
+                        boolean doContinue = te.getCapability(CapabilityEnergy.ENERGY, direction).map(handler -> {
+                                    if (handler.canReceive()) {
+                                        int received = handler.receiveEnergy(Math.min(capacity.get(), 100), false);
+                                        capacity.addAndGet(-received);
+                                        ((CustomEnergyStorage) energy).receiveEnergy(received, false);
+                                        setChanged();
+                                        return capacity.get() > 0;
+                                    } else {
+                                        return true;
+                                    }
+                                }
+                        ).orElse(true);
+                        if (!doContinue) {
+                            return;
+                        }
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -39,7 +81,7 @@ public abstract class PowerableBlockEntity extends TileEntity {
     }
 
     public IEnergyStorage createEnergy() {
-        return new CustomEnergyStorage(4000, 0);
+        return new CustomEnergyStorage(4000, 4000);
     }
 
     @Nonnull

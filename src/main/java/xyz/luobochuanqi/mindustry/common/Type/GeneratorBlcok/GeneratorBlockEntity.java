@@ -119,6 +119,11 @@ public abstract class GeneratorBlockEntity extends PowerableBlockEntity implemen
                     return super.getSlotLimit(slot);
                 }
             }
+
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
         };
     }
 

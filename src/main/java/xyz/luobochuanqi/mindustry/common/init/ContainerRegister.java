@@ -9,6 +9,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import xyz.luobochuanqi.mindustry.Utils;
+import xyz.luobochuanqi.mindustry.client.GUI.OneEItemSlotContainer;
 import xyz.luobochuanqi.mindustry.client.GUI.OneItemSlotContainer;
 
 public class ContainerRegister {
@@ -24,4 +25,8 @@ public class ContainerRegister {
             CONTAINERS.register("one_item_slot_container",
                     () -> IForgeContainerType.create((int windowId, PlayerInventory playerInv, PacketBuffer extraData)
                             -> new OneItemSlotContainer(windowId, Minecraft.getInstance().level, extraData.readBlockPos(), playerInv)));
+    public static final RegistryObject<ContainerType<OneEItemSlotContainer>> one_eitem_slot_container =
+            CONTAINERS.register("one_eitem_slot_container",
+                    () -> IForgeContainerType.create((int windowId, PlayerInventory playerInv, PacketBuffer extraData)
+                            -> new OneEItemSlotContainer(windowId, Minecraft.getInstance().level, extraData.readBlockPos(), playerInv)));
 }

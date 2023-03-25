@@ -6,7 +6,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import xyz.luobochuanqi.mindustry.client.GUI.OneItemSlotContainer;
+import xyz.luobochuanqi.mindustry.client.GUI.OneEItemSlotContainer;
 import xyz.luobochuanqi.mindustry.common.Type.GeneratorBlcok.GeneratorBlockEntity;
 import xyz.luobochuanqi.mindustry.common.init.TileEntityRegister;
 
@@ -25,7 +25,7 @@ public class CombustionGeneratorBlockEntity extends GeneratorBlockEntity impleme
     @Nullable
     @Override
     public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return new OneItemSlotContainer(i, this.level, this.worldPosition, playerInventory);
+        return new OneEItemSlotContainer(i, this.level, this.worldPosition, playerInventory);
     }
 
     @Override
