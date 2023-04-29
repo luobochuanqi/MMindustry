@@ -37,20 +37,14 @@ public class Ores extends Item {
 
         private final String name;
 
-        //        private final String nameCN;
         OreType(String name) {
             this.name = name;
-//            this.nameCN = nameCN;
         }
 
         @Override
         public String toString() {
             return this.name;
         }
-
-//        public String toCN() {
-//            return this.nameCN;
-//        }
 
         @Override
         public String getSerializedName() {

@@ -7,6 +7,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import xyz.luobochuanqi.mindustry.Utils;
 import xyz.luobochuanqi.mindustry.client.modTab.ModTab;
+import xyz.luobochuanqi.mindustry.common.world.Item.DrillBlockItem;
 import xyz.luobochuanqi.mindustry.common.world.Item.Ores;
 
 public class ItemRegister {
@@ -28,7 +29,7 @@ public class ItemRegister {
 //                            new Item.Properties().tab(ModTab.modItemGroup)));
     public static final RegistryObject<Item> mechanical_drill_block =
             ITEMS.register("mechanical_drill_block",
-                    () -> new BlockItem(BlockRegister.mechanical_drill_block.get(),
+                    () -> new DrillBlockItem(BlockRegister.mechanical_drill_block.get(),
                             new Item.Properties().tab(ModTab.modItemGroup)));
 
     public static final RegistryObject<Item> copper_ore =

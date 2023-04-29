@@ -7,10 +7,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.energy.CapabilityEnergy;
 import xyz.luobochuanqi.mindustry.Utils;
+import xyz.luobochuanqi.mindustry.common.Type.PowerableBlockEntity;
+import xyz.luobochuanqi.mindustry.common.util.CustomEnergyStorage;
 
 public class OneEItemSlotScreen extends ContainerScreen<OneEItemSlotContainer> {
     private ResourceLocation texture;
     private OneEItemSlotContainer container;
+    private PowerableBlockEntity blockEntity;
+    private int energy;
 
     public OneEItemSlotScreen(OneEItemSlotContainer pMenu, PlayerInventory pPlayerInventory, ITextComponent pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
@@ -18,6 +22,7 @@ public class OneEItemSlotScreen extends ContainerScreen<OneEItemSlotContainer> {
         this.imageWidth = 176;
         this.imageHeight = 166;
         this.container = pMenu;
+        this.blockEntity = (PowerableBlockEntity) container.getTileEntity();
         setGUITexture(texture);
     }
 
@@ -40,8 +45,15 @@ public class OneEItemSlotScreen extends ContainerScreen<OneEItemSlotContainer> {
 
     @Override
     protected void renderLabels(MatrixStack pMatrixStack, int pX, int pY) {
-        container.getTileEntity().getCapability(CapabilityEnergy.ENERGY, null).ifPresent(cap -> {
-            this.font.draw(pMatrixStack, String.valueOf(cap.getEnergyStored()), 15, 16, -52225);
+        super.renderLabels(pMatrixStack, pX, pY);
+
+        blockEntity.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(cap -> {
+            energy = ((CustomEnergyStorage) cap).getEnergyStored();
         });
+        Utils.LOGGER.info(energy);
+        blockEntity.setChanged();
+//        container.getTileEntity().getTileData().getCompound("energy");
+        Utils.LOGGER.info(container.getTileEntity().getBlockPos());
+        Utils.LOGGER.info(blockEntity.getEnergy());
     }
 }

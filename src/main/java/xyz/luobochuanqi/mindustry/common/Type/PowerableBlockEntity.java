@@ -27,7 +27,7 @@ public abstract class PowerableBlockEntity extends TileEntity implements ITickab
     @Override
     public void tick() {
         if (!level.isClientSide) {
-            sendOutPower();
+//            sendOutPower();
         }
     }
 
@@ -91,5 +91,13 @@ public abstract class PowerableBlockEntity extends TileEntity implements ITickab
             return energy.cast();
         }
         return super.getCapability(cap, side);
+    }
+
+    public int getEnergy() {
+        AtomicInteger e = new AtomicInteger();
+        this.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(cap -> {
+            e.set(((CustomEnergyStorage) cap).getEnergyStored());
+        });
+        return e.get();
     }
 }

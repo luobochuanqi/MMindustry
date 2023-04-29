@@ -129,7 +129,7 @@ public abstract class DrillBlockEntity extends TileEntity implements ITickableTi
                 counter--;
             } else if (counter <= 0) {
                 increment += rate;
-                Utils.LOGGER.info("rate: " + rate + "num：" + getTheNumOfOres());
+                Utils.LOGGER.info("rate: " + rate + " num：" + getTheNumOfOres());
                 if (increment >= 10) {
                     ItemStack newItemStack = new ItemStack(getDrillableItemByBlock(this.level.getBlockState(this.worldPosition.below()).getBlock()), 1);
                     this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(pCap -> {
@@ -155,7 +155,9 @@ public abstract class DrillBlockEntity extends TileEntity implements ITickableTi
         double d1 = (double) pPos.getY() + 1.0D;
         double d2 = (double) pPos.getZ() + 0.5D + (0.5D - pRand.nextDouble());
         double d3 = (double) pRand.nextFloat() * 0.4D;
-        level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, d0, d1, d2, 0.0D, d3, 0.0D);
+        level.addAlwaysVisibleParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, d0, d1, d2, 0.0D, d3, 0.0D);
+        Utils.LOGGER.info("yy");
+        level.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.0D, d3, 0.0D);
     }
 
     /**
