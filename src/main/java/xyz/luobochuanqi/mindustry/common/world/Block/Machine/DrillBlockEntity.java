@@ -1,4 +1,4 @@
-package xyz.luobochuanqi.mindustry.common.Type.DrillBlock;
+package xyz.luobochuanqi.mindustry.common.world.Block.Machine;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

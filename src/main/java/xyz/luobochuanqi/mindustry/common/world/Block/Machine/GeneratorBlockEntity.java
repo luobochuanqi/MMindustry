@@ -1,4 +1,4 @@
-package xyz.luobochuanqi.mindustry.common.Type.GeneratorBlcok;
+package xyz.luobochuanqi.mindustry.common.world.Block.Machine;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
@@ -15,9 +15,9 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.luobochuanqi.mindustry.common.Type.PowerableBlockEntity;
 import xyz.luobochuanqi.mindustry.common.init.ItemRegister;
 import xyz.luobochuanqi.mindustry.common.util.CustomEnergyStorage;
+import xyz.luobochuanqi.mindustry.common.world.Block.PowerableBlockEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

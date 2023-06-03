@@ -7,8 +7,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.energy.CapabilityEnergy;
 import xyz.luobochuanqi.mindustry.Utils;
-import xyz.luobochuanqi.mindustry.common.Type.PowerableBlockEntity;
 import xyz.luobochuanqi.mindustry.common.util.CustomEnergyStorage;
+import xyz.luobochuanqi.mindustry.common.world.Block.PowerableBlockEntity;
 
 public class OneEItemSlotScreen extends ContainerScreen<OneEItemSlotContainer> {
     private ResourceLocation texture;

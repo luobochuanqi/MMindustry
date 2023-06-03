@@ -1,4 +1,4 @@
-package xyz.luobochuanqi.mindustry.common.world.BlockEntity.Machine.Mechanical_Drill;
+package xyz.luobochuanqi.mindustry.common.world.Block.Machine;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -11,7 +11,6 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import xyz.luobochuanqi.mindustry.client.GUI.OneItemSlotContainer;
-import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillBlockEntity;
 import xyz.luobochuanqi.mindustry.common.init.BlockRegister;
 import xyz.luobochuanqi.mindustry.common.init.ItemRegister;
 import xyz.luobochuanqi.mindustry.common.init.TileEntityRegister;

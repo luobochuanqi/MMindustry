@@ -19,7 +19,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import xyz.luobochuanqi.mindustry.Utils;
 import xyz.luobochuanqi.mindustry.common.init.BlockRegister;
-import xyz.luobochuanqi.mindustry.common.world.Block.Ore.OreBlocks;
+import xyz.luobochuanqi.mindustry.common.world.Block.OreBlocks;
 import xyz.luobochuanqi.mindustry.common.world.Item.Ores;
 
 import java.io.FileInputStream;

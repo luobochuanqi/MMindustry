@@ -1,4 +1,4 @@
-package xyz.luobochuanqi.mindustry.common.Type;
+package xyz.luobochuanqi.mindustry.common.world.Block;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;

@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import xyz.luobochuanqi.mindustry.Utils;
-import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillBlockEntity;
+import xyz.luobochuanqi.mindustry.common.world.Block.Machine.DrillBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.List;

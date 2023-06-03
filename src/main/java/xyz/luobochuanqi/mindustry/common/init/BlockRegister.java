@@ -2,15 +2,17 @@ package xyz.luobochuanqi.mindustry.common.init;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import xyz.luobochuanqi.mindustry.Utils;
-import xyz.luobochuanqi.mindustry.common.world.Block.Ore.OreBlocks;
-import xyz.luobochuanqi.mindustry.common.world.BlockEntity.Machine.Mechanical_Drill.MechanicalDrillBlock;
-import xyz.luobochuanqi.mindustry.common.world.BlockEntity.Power.BatteryBlock.BatteryBlock;
-import xyz.luobochuanqi.mindustry.common.world.BlockEntity.Power.CombustionGenerator.CombustionGeneratorBlock;
+import xyz.luobochuanqi.mindustry.common.world.Block.Functional.BatteryBlock;
+import xyz.luobochuanqi.mindustry.common.world.Block.Machine.CombustionGeneratorBlock;
+import xyz.luobochuanqi.mindustry.common.world.Block.Machine.MechanicalDrillBlock;
+import xyz.luobochuanqi.mindustry.common.world.Block.Machine.TurretBlock;
+import xyz.luobochuanqi.mindustry.common.world.Block.OreBlocks;
 
 public class BlockRegister {
     public static final DeferredRegister<Block> BLOCKS =
@@ -48,4 +50,7 @@ public class BlockRegister {
     public static final RegistryObject<Block> mechanical_drill_block =
             BLOCKS.register("mechanical_drill_block",
                     () -> new MechanicalDrillBlock(AbstractBlock.Properties.of(Material.STONE).strength(5)));
+    public static final RegistryObject<Block> turret_duo =
+            BLOCKS.register("turret_duo",
+                    () -> new TurretBlock(AbstractBlock.Properties.of(Material.METAL).sound(SoundType.METAL).strength(3, 15).noOcclusion());
 }

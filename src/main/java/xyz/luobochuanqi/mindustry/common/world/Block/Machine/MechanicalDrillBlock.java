@@ -1,4 +1,4 @@
-package xyz.luobochuanqi.mindustry.common.world.BlockEntity.Machine.Mechanical_Drill;
+package xyz.luobochuanqi.mindustry.common.world.Block.Machine;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,7 +14,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
-import xyz.luobochuanqi.mindustry.common.Type.DrillBlock.DrillBlock;
 import xyz.luobochuanqi.mindustry.common.util.Mod2x2Part;
 
 import javax.annotation.Nullable;

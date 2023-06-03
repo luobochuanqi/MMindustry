@@ -1,4 +1,4 @@
-package xyz.luobochuanqi.mindustry.common.world.Block.Ore;
+package xyz.luobochuanqi.mindustry.common.world.Block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

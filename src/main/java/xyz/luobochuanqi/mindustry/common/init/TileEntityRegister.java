@@ -5,9 +5,9 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import xyz.luobochuanqi.mindustry.Utils;
-import xyz.luobochuanqi.mindustry.common.world.BlockEntity.Machine.Mechanical_Drill.MechanicalDrillBlockEntity;
-import xyz.luobochuanqi.mindustry.common.world.BlockEntity.Power.BatteryBlock.BatteryBlockEntity;
-import xyz.luobochuanqi.mindustry.common.world.BlockEntity.Power.CombustionGenerator.CombustionGeneratorBlockEntity;
+import xyz.luobochuanqi.mindustry.common.world.Block.Functional.BatteryBlockEntity;
+import xyz.luobochuanqi.mindustry.common.world.Block.Machine.CombustionGeneratorBlockEntity;
+import xyz.luobochuanqi.mindustry.common.world.Block.Machine.MechanicalDrillBlockEntity;
 
 public class TileEntityRegister {
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES =

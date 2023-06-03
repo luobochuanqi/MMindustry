@@ -1,4 +1,4 @@
-package xyz.luobochuanqi.mindustry.common.world.BlockEntity.Power.BatteryBlock;
+package xyz.luobochuanqi.mindustry.common.world.Block.Functional;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
