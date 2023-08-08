@@ -1,0 +1,45 @@
+{
+	"schemaVersion": 1,
+	"id": "mmindustry",
+	"version": "${version}",
+	"name": "MMindustry",
+	"description": "A Minecraft mod aimed to bring Mindustry into MC!",
+	"authors": [
+		"luobochuanqi",
+		"you!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/mmindustry/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"mc.mdt.MMindustry"
+		],
+		"client": [
+			"mc.mdt.MMindustryClient"
+		],
+		"fabric-datagen": [
+			"mc.mdt.MMindustryDataGenerator"
+		]
+	},
+	"mixins": [
+		"mmindustry.mixins.json",
+		{
+			"config": "mmindustry.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.14.22",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
