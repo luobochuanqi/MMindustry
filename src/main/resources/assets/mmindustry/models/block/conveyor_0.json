@@ -1,0 +1,22 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "mmindustry:block/conveyor_0",
+		"1": "mmindustry:block/conveyor_other",
+		"particle": "mmindustry:block/conveyor_0"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 2, 16],
+			"faces": {
+				"north": {"uv": [16, 0, 0, 2], "texture": "#1"},
+				"east": {"uv": [14, 0, 16, 16], "texture": "#1"},
+				"south": {"uv": [0, 14, 16, 16], "texture": "#1"},
+				"west": {"uv": [0, 0, 2, 16], "texture": "#1"},
+				"up": {"uv": [16, 16, 0, 0], "texture": "#0"},
+				"down": {"uv": [16, 0, 0, 16], "texture": "#1"}
+			}
+		}
+	]
+}

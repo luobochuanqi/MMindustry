@@ -6,4 +6,5 @@ package mc.mdt;
 public class Util {
     // Identifier used to annotate the translated file.
     public static final String TEXT_MISC = "misc.";
+    public static final String TEXT_MESSAGE = "msg.";
 }

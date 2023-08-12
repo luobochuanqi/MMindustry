@@ -4,6 +4,11 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.minecraft.data.client.*;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 
 public class MMindustryDataGenerator implements DataGeneratorEntrypoint {
 
@@ -26,9 +31,33 @@ public class MMindustryDataGenerator implements DataGeneratorEntrypoint {
 		}
 	}
 
+	private static class ModModelGenerator extends FabricModelProvider {
+		private ModModelGenerator(FabricDataOutput output) {
+			super(output);
+		}
+
+		// .put(VariantSettings.MODEL, new Identifier())
+		@Override
+		public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+			blockStateModelGenerator.blockStateCollector.accept(MultipartBlockStateSupplier.create(MMindustry.WOOD_CONVEYOR_BELT_BLOCK)
+					.with(When.create().set(Properties.HORIZONTAL_FACING, Direction.WEST), BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MMindustry.MOD_ID, "block/conveyor_0")).put(VariantSettings.Y, VariantSettings.Rotation.R0))
+					.with(When.create().set(Properties.HORIZONTAL_FACING, Direction.NORTH), BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MMindustry.MOD_ID, "block/conveyor_0")).put(VariantSettings.Y, VariantSettings.Rotation.R90))
+					.with(When.create().set(Properties.HORIZONTAL_FACING, Direction.EAST), BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MMindustry.MOD_ID, "block/conveyor_0")).put(VariantSettings.Y, VariantSettings.Rotation.R180))
+					.with(When.create().set(Properties.HORIZONTAL_FACING, Direction.SOUTH), BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MMindustry.MOD_ID, "block/conveyor_0")).put(VariantSettings.Y, VariantSettings.Rotation.R270))
+			);
+//			blockStateModelGenerator.registerSimpleCubeAll(MMindustry.WOOD_CONVEYOR_BELT_BLOCK);
+		}
+
+		@Override
+		public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+			itemModelGenerator.register(MMindustry.WOOD_CONVEYOR_BELT_BLOCK_ITEM, Models.GENERATED);
+		}
+	}
+
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 		pack.addProvider(ModEnglishLangProvider::new);
+		pack.addProvider(ModModelGenerator::new);
 	}
 }

@@ -1,0 +1,40 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "mmindustry:block/conveyor_0",
+        "y": 0
+      },
+      "when": {
+        "facing": "west"
+      }
+    },
+    {
+      "apply": {
+        "model": "mmindustry:block/conveyor_0",
+        "y": 90
+      },
+      "when": {
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "mmindustry:block/conveyor_0",
+        "y": 180
+      },
+      "when": {
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "mmindustry:block/conveyor_0",
+        "y": 270
+      },
+      "when": {
+        "facing": "south"
+      }
+    }
+  ]
+}
