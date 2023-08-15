@@ -29,7 +29,9 @@ public class WoodConveyorBeltBlock extends ConveyorBeltBlock {
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? checkType(type, MMindustry.WOOD_CONVEYOR_BELT_BLOCK_ENTITY, WoodConveyorBeltBlockEntity::clientTick) : checkType(type, MMindustry.WOOD_CONVEYOR_BELT_BLOCK_ENTITY, WoodConveyorBeltBlockEntity::serverTick);
+        return world.isClient ?
+                checkType(type, MMindustry.WOOD_CONVEYOR_BELT_BLOCK_ENTITY, WoodConveyorBeltBlockEntity::clientTick)
+                : checkType(type, MMindustry.WOOD_CONVEYOR_BELT_BLOCK_ENTITY, WoodConveyorBeltBlockEntity::serverTick);
     }
 
     @Override

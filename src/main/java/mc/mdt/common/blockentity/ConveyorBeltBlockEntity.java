@@ -27,7 +27,7 @@ import java.util.Objects;
  * @author BillBodkin
  * NamedScreenHandlerFactory,
  */
-public class ConveyorBeltBlockEntity extends BlockEntity implements  SidedInventory, Inventory {
+public class ConveyorBeltBlockEntity extends BlockEntity implements SidedInventory, Inventory {
 
     public DefaultedList<ItemStack> items = DefaultedList.ofSize(3, ItemStack.EMPTY);
 
@@ -46,17 +46,6 @@ public class ConveyorBeltBlockEntity extends BlockEntity implements  SidedInvent
     }
 
     public static void clientTick(World world, BlockPos pos, BlockState state, ConveyorBeltBlockEntity blockEntity) {
-/*
-        if (MinecraftClient.getInstance().isInSingleplayer()) {
-            return;
-        }
-*/
-
-/*
-        if (!state.get(ConveyorBelt.ENABLED)) {
-            return;
-        }
-*/
 
         for (int i = 0; i < 3; i++) {
             blockEntity.updateCooldowns(i);
@@ -68,6 +57,7 @@ public class ConveyorBeltBlockEntity extends BlockEntity implements  SidedInvent
 //            blockEntity.updateSlotActuallyEmptyHack();
 //            return;
 //        }
+//        MMindustry.LOGGER.debug(String.valueOf(blockEntity));
 
         for (int i = 0; i < 3; i++) {
             if (blockEntity.getStack(i).isEmpty()) {
@@ -116,9 +106,8 @@ public class ConveyorBeltBlockEntity extends BlockEntity implements  SidedInvent
         double y = pos.getY() + 0.5D;
         double z = pos.getZ() + 0.5D;
 
-        // TODO Why the fuck is int and not double??
         ConveyorBeltBlockEntity inventory = null;
-        BlockPos blockPos = new BlockPos((int)x, (int)y, (int)z);
+        BlockPos blockPos = new BlockPos.Mutable(x, y, z);
         BlockState blockState = world.getBlockState(blockPos);
         if (blockState.hasBlockEntity()) {
             Block block = blockState.getBlock();
@@ -221,32 +210,7 @@ public class ConveyorBeltBlockEntity extends BlockEntity implements  SidedInvent
             return false;
         }
 
-//        if (!conveyorBlockEntityInfront.getCachedState().get(ConveyorBeltBlock.ENABLED)) {
-//            return false;
-//        }
-
-//        if (conveyorBlockEntityInfront instanceof SlopedConveyorBeltUpBlockEntity) {
-//            if (direction != conveyorBlockEntityInfront.getCachedState().get(ConveyorBeltBlock.FACING)) {
-//                return false;
-//            }
-//
-////            if (!((SlopedConveyorBeltUpBlockEntity) conveyorBlockEntityInfront).copiedItemsFromBelowIfTop && conveyorBlockEntityInfront.getCachedState().get(SlopedConveyorBeltUp.HALF) == DoubleBlockHalf.UPPER) {
-////                // Prevents any items going into the top inventory before it is overwritten by the bottom one
-////                return false;
-////            }
-//
-//            if (!(conveyorBlockEntityInfront instanceof SlopedConveyorBeltDownBlockEntity) && conveyorBlockEntityInfront.getCachedState().get(SlopedConveyorBeltUp.HALF) == DoubleBlockHalf.UPPER) {
-//                return false;
-//            }
-//        }
-
         Direction directionOfBeltInfront = conveyorBlockEntityInfront.world.getBlockState(conveyorBlockEntityInfront.pos).get(ConveyorBeltBlock.FACING);
-
-//        if (conveyorBlockEntityInfront instanceof SlopedConveyorBeltDownBlockEntity && directionOfBeltInfront == direction
-//                && conveyorBlockEntityInfront.getCachedState().get(SlopedConveyorBeltUp.HALF) == DoubleBlockHalf.LOWER)
-//        {
-//            return false;
-//        }
 
         if (directionOfBeltInfront.getOpposite() == direction) {
             // Belts are facing towards each-over, item can move
@@ -389,7 +353,7 @@ public class ConveyorBeltBlockEntity extends BlockEntity implements  SidedInvent
         items.get(slot).decrement(amount);
         toRet.setCount(amount);
 
-        //updateSlotActuallyEmptyHack();
+        // updateSlotActuallyEmptyHack();
         return toRet;
     }
 
@@ -459,10 +423,6 @@ public class ConveyorBeltBlockEntity extends BlockEntity implements  SidedInvent
     @Override
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
         Direction facing = getCachedState().get(ConveyorBeltBlock.FACING);
-
-//        if (!getCachedState().get(ConveyorBeltBlock.ENABLED)) {
-//            return false;
-//        }
 
         if (facing.getOpposite() == dir) {
             return slot == 0 && canMoveToSlot(0);
