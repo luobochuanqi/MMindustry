@@ -3,12 +3,14 @@ package mc.mdt;
 import mc.mdt.common.blockItem.ConveyorBeltBockItem;
 import mc.mdt.common.blockentity.WoodConveyorBeltBlockEntity;
 import mc.mdt.common.blocks.WoodConveyorBeltBlock;
+import mc.mdt.common.screenHandler.ConveyorBeltScreenHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -18,6 +20,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -49,40 +52,38 @@ public class MMindustry implements ModInitializer {
 
 	// BELT TRANSFER COOL DOWNS
 	public static final int WOOD_TRANSFER_COOLDOWN = 30;
-	public static final int IRON_TRANSFER_COOLDOWN = 4;
-	public static final int GOLD_TRANSFER_COOLDOWN = 2;
 
 	// BELT ENTITY MOVE SPEEDS
 	public static final double WOOD_ENTITY_MOVE_SPEED = 0.011f;
-	public static final double IRON_ENTITY_MOVE_SPEED = 0.108f;
-	public static final double GOLD_ENTITY_MOVE_SPEED = 0.375f;
 
-	// BELT MOVE ITEMS TO CENTER SPEED
-	public static final int WOOD_MOVE_TO_CENTER_SPEED = 2;
-	public static final int IRON_MOVE_TO_CENTER_SPEED = 5;
-	public static final int GOLD_MOVE_TO_CENTER_SPEED = 12;
+    // BELT MOVE ITEMS TO CENTER SPEED
+    public static final int WOOD_MOVE_TO_CENTER_SPEED = 2;
 
-	// ROBOTIC ARM MAX PROGRESS (SPEEDS)
-	public static final int WOOD_ROBOTIC_ARM_SPEED = 100;
-	public static final int IRON_ROBOTIC_ARM_SPEED = 10;
-	public static final int GOLD_ROBOTIC_ARM_SPEED = 6;
-	public static final int NETHERITE_ROBOTIC_ARM_SPEED = 6;
+    // wood
+    public static WoodConveyorBeltBlock WOOD_CONVEYOR_BELT_BLOCK = new WoodConveyorBeltBlock(FabricBlockSettings.create().strength(0.8f));
+    public static final Identifier WOOD_CONVEYOR_BELT_IDENTIFIER = new Identifier(MOD_ID, "wood_conveyor_belt");
+    public static BlockEntityType<WoodConveyorBeltBlockEntity> WOOD_CONVEYOR_BELT_BLOCK_ENTITY;
+    public static Item WOOD_CONVEYOR_BELT_BLOCK_ITEM;
 
-	// wood
-	public static WoodConveyorBeltBlock WOOD_CONVEYOR_BELT_BLOCK = new WoodConveyorBeltBlock(FabricBlockSettings.create().strength(0.8f));
-	public static final Identifier WOOD_CONVEYOR_BELT_IDENTIFIER = new Identifier(MOD_ID, "wood_conveyor_belt");
-	public static BlockEntityType<WoodConveyorBeltBlockEntity> WOOD_CONVEYOR_BELT_BLOCK_ENTITY;
-	public static Item WOOD_CONVEYOR_BELT_BLOCK_ITEM;
+    // screen
+    // Creating the screen handler type
+    public static final ScreenHandlerType<ConveyorBeltScreenHandler> CONVEYOR_BELT_SCREEN_HANDLER_TYPE
+            = ScreenHandlerRegistry.registerSimple(new Identifier(MOD_ID, "conveyor_belt_screen"), ConveyorBeltScreenHandler::new);
 
-	@Override
-	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
-		LOGGER.info("Loading MMindustry...");
 
-		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "custom_item"), CUSTOM_ITEM);
-		Registry.register(Registries.ITEM_GROUP, MMDT_ITEM_GROUP_IDENTIFIER, MMDT_ITEM_GROUP);
+    //BELT SCREENS new ScreenHandlerType<>(ConveyorBeltScreenHandler::new)
+//	public static final ScreenHandlerType<ConveyorBeltScreenHandler> CONVEYOR_BELT_SCREEN_HANDLER
+//			= Registry.register(Registries.SCREEN_HANDLER, new Identifier(MOD_ID, "conveyor_belt_screen"), CONVEYORBELTSCREENHANDLERTYPE);
+
+    @Override
+    public void onInitialize() {
+        // This code runs as soon as Minecraft is in a mod-load-ready state.
+        // However, some things (like resources) may still be uninitialized.
+        // Proceed with mild caution.
+        LOGGER.info("Loading MMindustry...");
+
+        Registry.register(Registries.ITEM, new Identifier(MOD_ID, "custom_item"), CUSTOM_ITEM);
+        Registry.register(Registries.ITEM_GROUP, MMDT_ITEM_GROUP_IDENTIFIER, MMDT_ITEM_GROUP);
 
 		// wood
 		WOOD_CONVEYOR_BELT_BLOCK_ENTITY = Registry.register(

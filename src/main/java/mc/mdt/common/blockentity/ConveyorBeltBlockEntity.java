@@ -1,11 +1,14 @@
 package mc.mdt.common.blockentity;
 
 import mc.mdt.common.blocks.ConveyorBeltBlock;
+import mc.mdt.common.screenHandler.ConveyorBeltScreenHandler;
+import mc.mdt.common.util.ConveyorBeltInventory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
@@ -14,7 +17,10 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -24,10 +30,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 /**
- * @author BillBodkin
- * NamedScreenHandlerFactory,
+ * @author BillBodkin, luobochuanqi
+ * implements NamedScreenHandlerFactory, ImplementedInventory
  */
-public class ConveyorBeltBlockEntity extends BlockEntity implements SidedInventory, Inventory {
+public class ConveyorBeltBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory, ConveyorBeltInventory {
 
     public DefaultedList<ItemStack> items = DefaultedList.ofSize(3, ItemStack.EMPTY);
 
@@ -53,12 +59,6 @@ public class ConveyorBeltBlockEntity extends BlockEntity implements SidedInvento
     }
 
     public static void serverTick(World world, BlockPos pos, BlockState state, ConveyorBeltBlockEntity blockEntity) {
-//        if (!state.get(ConveyorBeltBlock.ENABLED)) {
-//            blockEntity.updateSlotActuallyEmptyHack();
-//            return;
-//        }
-//        MMindustry.LOGGER.debug(String.valueOf(blockEntity));
-
         for (int i = 0; i < 3; i++) {
             if (blockEntity.getStack(i).isEmpty()) {
                 // if empty slot, reset cool-downs
@@ -134,13 +134,6 @@ public class ConveyorBeltBlockEntity extends BlockEntity implements SidedInvento
         super.writeNbt(tag);
     }
 
-//    @Override
-//    public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-//        // We provide *this* to the screenHandler as our class Implements Inventory
-//        // Only the Server has the Inventory at the start, this will be synced to the client in the ScreenHandler
-//        return new ConveyorBeltScreenHandler(syncId, inv, this);
-//    }
-
     @Override
     public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
@@ -163,11 +156,6 @@ public class ConveyorBeltBlockEntity extends BlockEntity implements SidedInvento
     public NbtCompound toInitialChunkDataNbt() {
         return createNbt();
     }
-
-//    @Override
-//    public Text getDisplayName() {
-//        return Text.translatable(getCachedState().getBlock().getTranslationKey());
-//    }
 
     public boolean canMoveToSlot(int slot) {
         if (slot == 4 || slot == 5) {
@@ -298,45 +286,8 @@ public class ConveyorBeltBlockEntity extends BlockEntity implements SidedInvento
     }
 
     @Override
-    public int size() {
-        return items.size();
-    }
-
-    @Override
-    public boolean isEmpty() {
-        for (int i = 0; i < items.size(); i++) {
-            if (!items.get(i).isEmpty()) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    @Override
-    public ItemStack getStack(int slot) {
-        if (slot >= 4) {
-            ItemStack stack = items.get(slot);
-
-            if (stack.isEmpty()) {
-                return stack;
-            }
-
-            // VERY hacky
-            NbtCompound nbt = stack.getOrCreateNbt();
-            if (nbt.getBoolean("IsFilterItem")) {
-                StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-                StackTraceElement calling = stackTraceElements[2];
-                String callingClass = calling.getClassName();
-                // String callingMethod = calling.getMethodName();
-                if ("dan200.computercraft.shared.util.ItemStorage$InventoryWrapper".equals(callingClass)) {
-                    // System.out.println(callingMethod);
-                    return ItemStack.EMPTY;
-                }
-            }
-        }
-
-        return items.get(slot);
+    public DefaultedList<ItemStack> getItems() {
+        return items;
     }
 
     @Override
@@ -355,22 +306,6 @@ public class ConveyorBeltBlockEntity extends BlockEntity implements SidedInvento
 
         // updateSlotActuallyEmptyHack();
         return toRet;
-    }
-
-    @Override
-    public ItemStack removeStack(int slot) {
-        ItemStack toRet = items.get(slot).copy();
-        items.set(slot, ItemStack.EMPTY);
-
-        // updateSlotActuallyEmptyHack();
-        return toRet;
-    }
-
-    @Override
-    public void setStack(int slot, ItemStack stack) {
-        items.set(slot, stack);
-
-        // updateSlotActuallyEmptyHack();
     }
 
     public void updateSlotActuallyEmptyHack() {
@@ -402,11 +337,6 @@ public class ConveyorBeltBlockEntity extends BlockEntity implements SidedInvento
             // new
             ((ServerWorld) world).getChunkManager().markForUpdate(getPos());
         }
-    }
-
-    @Override
-    public boolean canPlayerUse(PlayerEntity player) {
-        return true;
     }
 
     @Override
@@ -466,5 +396,18 @@ public class ConveyorBeltBlockEntity extends BlockEntity implements SidedInvento
     @Override
     public void clear() {
         items.clear();
+    }
+
+    @Override
+    public Text getDisplayName() {
+        return Text.translatable(getCachedState().getBlock().getTranslationKey());
+    }
+
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+        // We provide *this* to the screenHandler as our class Implements Inventory
+        // Only the Server has the Inventory at the start, this will be synced to the client in the ScreenHandler
+        return new ConveyorBeltScreenHandler(syncId, playerInventory, this);
     }
 }

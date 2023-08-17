@@ -6,16 +6,16 @@ import mc.mdt.common.blockItem.ConveyorBeltBockItem;
 import mc.mdt.common.blockentity.ConveyorBeltBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.enums.RailShape;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
@@ -35,11 +35,9 @@ import org.jetbrains.annotations.Nullable;
  */
 public class ConveyorBeltBlock extends BlockWithEntity {
 
-    public static final DirectionProperty FACING;
-
-    static {
-        FACING = Properties.HORIZONTAL_FACING;
-    }
+    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+    // TODO change FACING to SHAPE
+    public static final EnumProperty<RailShape> SHAPE = Properties.RAIL_SHAPE;
 
     public ConveyorBeltBlock(Settings settings, boolean skipSetDefaultState) {
         super(settings);
@@ -82,17 +80,26 @@ public class ConveyorBeltBlock extends BlockWithEntity {
 
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+//        if (state.getBlock() != newState.getBlock()) {
+//            BlockEntity blockEntity = world.getBlockEntity(pos);
+//            if (blockEntity instanceof ConveyorBeltBlockEntity conveyorBeltBlockEntity) {
+//                for (int i = 0; i < conveyorBeltBlockEntity.size(); ++i) {
+//                    ItemStack stack = conveyorBeltBlockEntity.getStack(i);
+//
+//                    NbtCompound stackNbt = stack.getOrCreateNbt();
+//                    if (!stackNbt.getBoolean("IsFilterItem")) {
+//                        ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), stack);
+//                    }
+//                }
+//                // update comparators
+//                world.updateComparators(pos, this);
+//            }
+//            super.onStateReplaced(state, world, pos, newState, moved);
+//        }
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof ConveyorBeltBlockEntity conveyorBeltBlockEntity) {
-                for (int i = 0; i < conveyorBeltBlockEntity.size(); ++i) {
-                    ItemStack stack = conveyorBeltBlockEntity.getStack(i);
-
-                    NbtCompound stackNbt = stack.getOrCreateNbt();
-                    if (!stackNbt.getBoolean("IsFilterItem")) {
-                        ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), stack);
-                    }
-                }
+            if (blockEntity instanceof ConveyorBeltBlockEntity) {
+                ItemScatterer.spawn(world, pos, (ConveyorBeltBlockEntity) blockEntity);
                 // update comparators
                 world.updateComparators(pos, this);
             }
