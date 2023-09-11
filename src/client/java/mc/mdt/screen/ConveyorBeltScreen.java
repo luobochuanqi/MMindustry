@@ -10,8 +10,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+/**
+ * @author luobochuanqi
+ */
 public class ConveyorBeltScreen extends HandledScreen<ConveyorBeltScreenHandler> {
-    //A path to the gui texture. In this example we use the texture from the dispenser
+    // A path to the gui texture. In this example we use the texture from the dispenser
     private static final Identifier TEXTURE = new Identifier(MMindustry.MOD_ID, "textures/gui/container/conveyor_belt.png");
 
     public ConveyorBeltScreen(ConveyorBeltScreenHandler handler, PlayerInventory inventory, Text title) {

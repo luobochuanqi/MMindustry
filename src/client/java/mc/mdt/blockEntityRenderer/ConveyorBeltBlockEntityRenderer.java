@@ -30,6 +30,7 @@ public class ConveyorBeltBlockEntityRenderer<T extends ConveyorBeltBlockEntity> 
     @Override
     public void render(ConveyorBeltBlockEntity blockEntity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
 
+        // get the inventory in blockEntity
         DefaultedList<ItemStack> beltInv = blockEntity.items;
         for (int i = 0; i < blockEntity.slotActuallyHasItem.length; i++) {
             if (blockEntity.slotActuallyHasItem[i] == 0) {
@@ -73,7 +74,7 @@ public class ConveyorBeltBlockEntityRenderer<T extends ConveyorBeltBlockEntity> 
 
         boolean hasDepth = Objects.requireNonNull(MinecraftClient.getInstance().getItemRenderer().getModels().getModel(itemStack.getItem())).hasDepth();
 
-        float height = hasDepth ? 0.15f : 0.18f;
+        float height = hasDepth ? 0.22f : 0.20f;
         float itemScale = 0.7f;
 
         Direction slopeDir = null;

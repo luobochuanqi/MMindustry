@@ -80,22 +80,6 @@ public class ConveyorBeltBlock extends BlockWithEntity {
 
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-//        if (state.getBlock() != newState.getBlock()) {
-//            BlockEntity blockEntity = world.getBlockEntity(pos);
-//            if (blockEntity instanceof ConveyorBeltBlockEntity conveyorBeltBlockEntity) {
-//                for (int i = 0; i < conveyorBeltBlockEntity.size(); ++i) {
-//                    ItemStack stack = conveyorBeltBlockEntity.getStack(i);
-//
-//                    NbtCompound stackNbt = stack.getOrCreateNbt();
-//                    if (!stackNbt.getBoolean("IsFilterItem")) {
-//                        ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), stack);
-//                    }
-//                }
-//                // update comparators
-//                world.updateComparators(pos, this);
-//            }
-//            super.onStateReplaced(state, world, pos, newState, moved);
-//        }
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof ConveyorBeltBlockEntity) {
