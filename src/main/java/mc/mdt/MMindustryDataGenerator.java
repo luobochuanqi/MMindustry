@@ -1,5 +1,6 @@
 package mc.mdt;
 
+import mc.mdt.common.init.MDTBlocks;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -39,18 +40,18 @@ public class MMindustryDataGenerator implements DataGeneratorEntrypoint {
 		// .put(VariantSettings.MODEL, new Identifier())
 		@Override
 		public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-			blockStateModelGenerator.blockStateCollector.accept(MultipartBlockStateSupplier.create(MMindustry.WOOD_CONVEYOR_BELT_BLOCK)
+			blockStateModelGenerator.blockStateCollector.accept(MultipartBlockStateSupplier.create(MDTBlocks.WOOD_CONVEYOR_BELT_BLOCK)
 					.with(When.create().set(Properties.HORIZONTAL_FACING, Direction.WEST), BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MMindustry.MOD_ID, "block/conveyor_0")).put(VariantSettings.Y, VariantSettings.Rotation.R0))
 					.with(When.create().set(Properties.HORIZONTAL_FACING, Direction.NORTH), BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MMindustry.MOD_ID, "block/conveyor_0")).put(VariantSettings.Y, VariantSettings.Rotation.R90))
 					.with(When.create().set(Properties.HORIZONTAL_FACING, Direction.EAST), BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MMindustry.MOD_ID, "block/conveyor_0")).put(VariantSettings.Y, VariantSettings.Rotation.R180))
 					.with(When.create().set(Properties.HORIZONTAL_FACING, Direction.SOUTH), BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MMindustry.MOD_ID, "block/conveyor_0")).put(VariantSettings.Y, VariantSettings.Rotation.R270))
 			);
-//			blockStateModelGenerator.registerSimpleCubeAll(MMindustry.WOOD_CONVEYOR_BELT_BLOCK);
+//			blockStateModelGenerator.registerSimpleCubeAll(MMindustry.OOD_CONVEYOR_BELT_BLOCK);
 		}
 
 		@Override
 		public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-			itemModelGenerator.register(MMindustry.WOOD_CONVEYOR_BELT_BLOCK_ITEM, Models.GENERATED);
+			itemModelGenerator.register(MDTBlocks.WOOD_CONVEYOR_BELT_BLOCK.asItem(), Models.GENERATED);
 		}
 	}
 

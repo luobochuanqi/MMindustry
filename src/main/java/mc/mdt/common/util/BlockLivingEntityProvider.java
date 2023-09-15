@@ -11,7 +11,6 @@ import org.jetbrains.annotations.Nullable;
 public interface BlockLivingEntityProvider {
     /**
      * 对应实体
-     *
      * @return 一个新的  {@link LivingEntity} 实例
      */
     @Nullable

@@ -1,7 +1,7 @@
 package mc.mdt;
 
 import mc.mdt.blockEntityRenderer.ConveyorBeltBlockEntityRenderer;
-import mc.mdt.common.entitys.MDTEntitys;
+import mc.mdt.common.init.MDTEntitys;
 import mc.mdt.entityRenderer.DuoTurretEntityModel;
 import mc.mdt.entityRenderer.DuoTurretEntityRenderer;
 import mc.mdt.screen.ConveyorBeltScreen;
@@ -39,6 +39,6 @@ public class MMindustryClient implements ClientModInitializer {
             return new DuoTurretEntityRenderer(context);
         });
 
-        EntityModelLayerRegistry.registerModelLayer(MODEL_CUBE_LAYER, DuoTurretEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(MODEL_CUBE_LAYER, DuoTurretEntityModel::createBodyLayer);
     }
 }

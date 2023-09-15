@@ -1,11 +1,12 @@
 package mc.mdt;
 
-import mc.mdt.common.blockItem.ConveyorBeltBockItem;
+import io.wispforest.owo.registration.reflect.FieldRegistrationHandler;
 import mc.mdt.common.blockentity.DuoTurretBlockEntity;
 import mc.mdt.common.blockentity.WoodConveyorBeltBlockEntity;
 import mc.mdt.common.blocks.DuoTurretBlcok;
-import mc.mdt.common.blocks.WoodConveyorBeltBlock;
-import mc.mdt.common.entitys.MDTEntitys;
+import mc.mdt.common.init.MDTBlockEntitys;
+import mc.mdt.common.init.MDTBlocks;
+import mc.mdt.common.init.MDTEntitys;
 import mc.mdt.common.screenHandler.ConveyorBeltScreenHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -55,18 +56,13 @@ public class MMindustry implements ModInitializer {
 
     // BELT TRANSFER COOL DOWNS
     public static final int WOOD_TRANSFER_COOLDOWN = 30;
-
     // BELT ENTITY MOVE SPEEDS
     public static final double WOOD_ENTITY_MOVE_SPEED = 0.011f;
-
     // BELT MOVE ITEMS TO CENTER SPEED
     public static final int WOOD_MOVE_TO_CENTER_SPEED = 2;
 
     // wood
-    public static WoodConveyorBeltBlock WOOD_CONVEYOR_BELT_BLOCK = new WoodConveyorBeltBlock(FabricBlockSettings.create().strength(0.8f));
-    public static final Identifier WOOD_CONVEYOR_BELT_IDENTIFIER = new Identifier(MOD_ID, "wood_conveyor_belt");
     public static BlockEntityType<WoodConveyorBeltBlockEntity> WOOD_CONVEYOR_BELT_BLOCK_ENTITY;
-    public static Item WOOD_CONVEYOR_BELT_BLOCK_ITEM;
 
     // screen
     // Creating the screen handler type
@@ -91,19 +87,11 @@ public class MMindustry implements ModInitializer {
         Registry.register(Registries.ITEM, new Identifier(MOD_ID, "custom_item"), CUSTOM_ITEM);
         Registry.register(Registries.ITEM_GROUP, MMDT_ITEM_GROUP_IDENTIFIER, MMDT_ITEM_GROUP);
 
-        MDTEntitys.init();
+        FieldRegistrationHandler.register(MDTEntitys.class, MOD_ID, false);
+        FieldRegistrationHandler.register(MDTBlocks.class, MOD_ID, false);
+        FieldRegistrationHandler.register(MDTBlockEntitys.class, MOD_ID, false);
 
         // wood
-        WOOD_CONVEYOR_BELT_BLOCK_ENTITY = Registry.register(
-                Registries.BLOCK_ENTITY_TYPE,
-                WOOD_CONVEYOR_BELT_IDENTIFIER,
-                FabricBlockEntityTypeBuilder.create(
-                                WoodConveyorBeltBlockEntity::new,
-                                WOOD_CONVEYOR_BELT_BLOCK)
-                        .build()
-        );
-        Registry.register(Registries.BLOCK, WOOD_CONVEYOR_BELT_IDENTIFIER, WOOD_CONVEYOR_BELT_BLOCK);
-        WOOD_CONVEYOR_BELT_BLOCK_ITEM = Registry.register(Registries.ITEM, WOOD_CONVEYOR_BELT_IDENTIFIER, new ConveyorBeltBockItem(WOOD_CONVEYOR_BELT_BLOCK, new FabricItemSettings()));
 
         // turret
         DUO_TURRET_BLOCK_ENTITY = Registry.register(
@@ -119,7 +107,8 @@ public class MMindustry implements ModInitializer {
 
         ItemGroupEvents.modifyEntriesEvent(MMDT_ITEM_GROUP_REGISTRY_KEY).register(content -> {
             content.add(CUSTOM_ITEM);
-            content.add(WOOD_CONVEYOR_BELT_BLOCK_ITEM);
+            content.add(MDTBlocks.WOOD_CONVEYOR_BELT_BLOCK.asItem());
+            content.add(DUO_TURRET_BLOCK_ITEM);
         });
     }
 }
