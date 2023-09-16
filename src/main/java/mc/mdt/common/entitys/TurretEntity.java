@@ -3,7 +3,6 @@ package mc.mdt.common.entitys;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.world.World;
 
@@ -17,7 +16,7 @@ public class TurretEntity extends MobEntity {
 
     @Override
     public boolean canHit() {
-        return false;
+        return super.canHit();
     }
 
     @Override
@@ -25,7 +24,7 @@ public class TurretEntity extends MobEntity {
     }
 
     @Override
-    public boolean damage(DamageSource source, float amount) {
-        return false;
+    public boolean isInvulnerable() {
+        return super.isInvulnerable();
     }
 }

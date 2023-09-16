@@ -2,7 +2,6 @@ package mc.mdt;
 
 import io.wispforest.owo.registration.reflect.FieldRegistrationHandler;
 import mc.mdt.common.blockentity.DuoTurretBlockEntity;
-import mc.mdt.common.blockentity.WoodConveyorBeltBlockEntity;
 import mc.mdt.common.blocks.DuoTurretBlcok;
 import mc.mdt.common.init.MDTBlockEntitys;
 import mc.mdt.common.init.MDTBlocks;
@@ -60,9 +59,6 @@ public class MMindustry implements ModInitializer {
     public static final double WOOD_ENTITY_MOVE_SPEED = 0.011f;
     // BELT MOVE ITEMS TO CENTER SPEED
     public static final int WOOD_MOVE_TO_CENTER_SPEED = 2;
-
-    // wood
-    public static BlockEntityType<WoodConveyorBeltBlockEntity> WOOD_CONVEYOR_BELT_BLOCK_ENTITY;
 
     // screen
     // Creating the screen handler type

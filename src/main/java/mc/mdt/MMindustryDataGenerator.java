@@ -41,12 +41,12 @@ public class MMindustryDataGenerator implements DataGeneratorEntrypoint {
 		@Override
 		public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
 			blockStateModelGenerator.blockStateCollector.accept(MultipartBlockStateSupplier.create(MDTBlocks.WOOD_CONVEYOR_BELT_BLOCK)
-					.with(When.create().set(Properties.HORIZONTAL_FACING, Direction.WEST), BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MMindustry.MOD_ID, "block/conveyor_0")).put(VariantSettings.Y, VariantSettings.Rotation.R0))
-					.with(When.create().set(Properties.HORIZONTAL_FACING, Direction.NORTH), BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MMindustry.MOD_ID, "block/conveyor_0")).put(VariantSettings.Y, VariantSettings.Rotation.R90))
-					.with(When.create().set(Properties.HORIZONTAL_FACING, Direction.EAST), BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MMindustry.MOD_ID, "block/conveyor_0")).put(VariantSettings.Y, VariantSettings.Rotation.R180))
-					.with(When.create().set(Properties.HORIZONTAL_FACING, Direction.SOUTH), BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MMindustry.MOD_ID, "block/conveyor_0")).put(VariantSettings.Y, VariantSettings.Rotation.R270))
-			);
-//			blockStateModelGenerator.registerSimpleCubeAll(MMindustry.OOD_CONVEYOR_BELT_BLOCK);
+                    .with(When.create().set(Properties.HORIZONTAL_FACING, Direction.WEST), BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MMindustry.MOD_ID, "block/conveyor_0")).put(VariantSettings.Y, VariantSettings.Rotation.R0))
+                    .with(When.create().set(Properties.HORIZONTAL_FACING, Direction.NORTH), BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MMindustry.MOD_ID, "block/conveyor_0")).put(VariantSettings.Y, VariantSettings.Rotation.R90))
+                    .with(When.create().set(Properties.HORIZONTAL_FACING, Direction.EAST), BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MMindustry.MOD_ID, "block/conveyor_0")).put(VariantSettings.Y, VariantSettings.Rotation.R180))
+                    .with(When.create().set(Properties.HORIZONTAL_FACING, Direction.SOUTH), BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MMindustry.MOD_ID, "block/conveyor_0")).put(VariantSettings.Y, VariantSettings.Rotation.R270))
+            );
+            blockStateModelGenerator.registerSimpleCubeAll(MMindustry.DUO_TURRET_BLOCK);
 		}
 
 		@Override

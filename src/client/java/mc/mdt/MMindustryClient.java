@@ -1,6 +1,7 @@
 package mc.mdt;
 
 import mc.mdt.blockEntityRenderer.ConveyorBeltBlockEntityRenderer;
+import mc.mdt.common.init.MDTBlockEntitys;
 import mc.mdt.common.init.MDTEntitys;
 import mc.mdt.entityRenderer.DuoTurretEntityModel;
 import mc.mdt.entityRenderer.DuoTurretEntityRenderer;
@@ -25,7 +26,7 @@ public class MMindustryClient implements ClientModInitializer {
         // This entrypoint is suitable for setting up client-specific logic, such as rendering.
 
         // blockentity renderer
-        BlockEntityRendererFactories.register(MMindustry.WOOD_CONVEYOR_BELT_BLOCK_ENTITY, ConveyorBeltBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(MDTBlockEntitys.WOOD_CONVEYOR_BELT_BLOCK_ENTITY, ConveyorBeltBlockEntityRenderer::new);
 
         // screen
         HandledScreens.register(MMindustry.CONVEYOR_BELT_SCREEN_HANDLER_TYPE, ConveyorBeltScreen::new);

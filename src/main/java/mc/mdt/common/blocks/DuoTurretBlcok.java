@@ -5,6 +5,7 @@ import mc.mdt.common.blockentity.DuoTurretBlockEntity;
 import mc.mdt.common.entitys.DuoTurretEntity;
 import mc.mdt.common.init.MDTEntitys;
 import mc.mdt.common.util.BlockLivingEntityProvider;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -21,6 +22,11 @@ import org.jetbrains.annotations.Nullable;
 public class DuoTurretBlcok extends BlockWithEntity implements BlockLivingEntityProvider {
     public DuoTurretBlcok(Settings settings) {
         super(settings);
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     @Nullable

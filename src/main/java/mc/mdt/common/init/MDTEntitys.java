@@ -1,12 +1,14 @@
 package mc.mdt.common.init;
 
 import io.wispforest.owo.registration.reflect.EntityRegistryContainer;
+import mc.mdt.MMindustry;
 import mc.mdt.common.entitys.DuoTurretEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.attribute.EntityAttributes;
 
 /**
  * @author luobochuanqi
@@ -19,6 +21,7 @@ public class MDTEntitys implements EntityRegistryContainer {
 
     @Override
     public void afterFieldProcessing() {
-        FabricDefaultAttributeRegistry.register(TURRET_DUO_ENTITY_TYPE, DuoTurretEntity.createMobAttributes());
+        MMindustry.LOGGER.info("1");
+        FabricDefaultAttributeRegistry.register(TURRET_DUO_ENTITY_TYPE, DuoTurretEntity.createMobAttributes().add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100.0));
     }
 }

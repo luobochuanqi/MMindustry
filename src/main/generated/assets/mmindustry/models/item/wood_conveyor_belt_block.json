@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "mmindustry:item/conveyor"
+    "layer0": "mmindustry:item/wood_conveyor_belt_block"
   }
 }

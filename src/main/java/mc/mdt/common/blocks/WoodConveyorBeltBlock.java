@@ -2,6 +2,7 @@ package mc.mdt.common.blocks;
 
 import mc.mdt.MMindustry;
 import mc.mdt.common.blockentity.WoodConveyorBeltBlockEntity;
+import mc.mdt.common.init.MDTBlockEntitys;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -30,8 +31,8 @@ public class WoodConveyorBeltBlock extends ConveyorBeltBlock {
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return world.isClient ?
-                checkType(type, MMindustry.WOOD_CONVEYOR_BELT_BLOCK_ENTITY, WoodConveyorBeltBlockEntity::clientTick)
-                : checkType(type, MMindustry.WOOD_CONVEYOR_BELT_BLOCK_ENTITY, WoodConveyorBeltBlockEntity::serverTick);
+                checkType(type, MDTBlockEntitys.WOOD_CONVEYOR_BELT_BLOCK_ENTITY, WoodConveyorBeltBlockEntity::clientTick)
+                : checkType(type, MDTBlockEntitys.WOOD_CONVEYOR_BELT_BLOCK_ENTITY, WoodConveyorBeltBlockEntity::serverTick);
     }
 
     @Override
