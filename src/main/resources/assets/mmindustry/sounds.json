@@ -1,0 +1,8 @@
+{
+  "shoot": {
+    "subtitle": "sounds.mmindustry.shoot",
+    "sounds": [
+      "mmindustry:shoot"
+    ]
+  }
+}
