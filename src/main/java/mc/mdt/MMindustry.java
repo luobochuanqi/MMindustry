@@ -3,9 +3,11 @@ package mc.mdt;
 import io.wispforest.owo.registration.reflect.FieldRegistrationHandler;
 import mc.mdt.common.blockentity.DuoTurretBlockEntity;
 import mc.mdt.common.blocks.DuoTurretBlcok;
+import mc.mdt.common.entitys.DuoTurretEntity;
 import mc.mdt.common.init.MDTBlockEntitys;
 import mc.mdt.common.init.MDTBlocks;
 import mc.mdt.common.init.MDTEntitys;
+import mc.mdt.common.init.MDTSounds;
 import mc.mdt.common.screenHandler.ConveyorBeltScreenHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -13,6 +15,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.*;
@@ -86,6 +89,7 @@ public class MMindustry implements ModInitializer {
         FieldRegistrationHandler.register(MDTEntitys.class, MOD_ID, false);
         FieldRegistrationHandler.register(MDTBlocks.class, MOD_ID, false);
         FieldRegistrationHandler.register(MDTBlockEntitys.class, MOD_ID, false);
+        FieldRegistrationHandler.register(MDTSounds.class, MOD_ID, false);
 
         // wood
 
@@ -106,5 +110,8 @@ public class MMindustry implements ModInitializer {
             content.add(MDTBlocks.WOOD_CONVEYOR_BELT_BLOCK.asItem());
             content.add(DUO_TURRET_BLOCK_ITEM);
         });
+
+
+        FabricDefaultAttributeRegistry.register(MDTEntitys.TURRET_DUO_ENTITY_TYPE, DuoTurretEntity.createMobAttributes());
     }
 }

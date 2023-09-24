@@ -11,7 +11,8 @@ import net.minecraft.item.Item;
  * @author luobochuanqi
  */
 public class MDTBlocks implements BlockRegistryContainer {
-    public static WoodConveyorBeltBlock WOOD_CONVEYOR_BELT_BLOCK = new WoodConveyorBeltBlock(FabricBlockSettings.create().strength(0.8f));
+    public static WoodConveyorBeltBlock WOOD_CONVEYOR_BELT_BLOCK =
+            new WoodConveyorBeltBlock(FabricBlockSettings.create().strength(0.8f));
 
     @Override
     public BlockItem createBlockItem(Block block, String identifier) {

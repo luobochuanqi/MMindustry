@@ -9,8 +9,9 @@ import net.minecraft.block.entity.BlockEntityType;
  * @author luobochuanqi
  */
 public class MDTBlockEntitys implements BlockEntityRegistryContainer {
-    public static final BlockEntityType<WoodConveyorBeltBlockEntity> WOOD_CONVEYOR_BELT_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(
-                    WoodConveyorBeltBlockEntity::new,
-                    MDTBlocks.WOOD_CONVEYOR_BELT_BLOCK)
-            .build();
+    public static final BlockEntityType<WoodConveyorBeltBlockEntity> WOOD_CONVEYOR_BELT_BLOCK_ENTITY =
+            FabricBlockEntityTypeBuilder.create(
+                            WoodConveyorBeltBlockEntity::new,
+                            MDTBlocks.WOOD_CONVEYOR_BELT_BLOCK)
+                    .build();
 }
