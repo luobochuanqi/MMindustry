@@ -18,9 +18,14 @@ public class MDTEntitys implements EntityRegistryContainer {
             .dimensions(EntityDimensions.fixed(0.7f, 0.7f))
             .build();
 
-    public static EntityType<BulletEntity> BULLET_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, (type, world) -> new BulletEntity(type, world))
-            .dimensions(EntityDimensions.fixed(0.1f, 0.1f))
-            .build();
+    public static EntityType<BulletEntity> BULLET_ENTITY =
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, createBulletEntity())
+                    .dimensions(EntityDimensions.fixed(0.1f, 0.1f))
+                    .build();
+
+    private static EntityType.EntityFactory<BulletEntity> createBulletEntity() {
+        return (entityType, world) -> new BulletEntity(entityType, world);
+    }
 
     @Override
     public void afterFieldProcessing() {

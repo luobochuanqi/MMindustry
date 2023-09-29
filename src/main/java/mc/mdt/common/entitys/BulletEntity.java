@@ -25,8 +25,10 @@ public class BulletEntity extends ProjectileEntity implements FlyingItemEntity {
 
     public BulletEntity(World world, LivingEntity owner, double velocityX, double velocityY, double velocityZ) {
         super(MDTEntitys.BULLET_ENTITY, world);
+        this.refreshPosition();
         this.setOwner(owner);
         this.setVelocity(velocityX, velocityY, velocityZ);
+        this.setRotation(owner.getYaw(), owner.getPitch());
     }
 
     @Override
