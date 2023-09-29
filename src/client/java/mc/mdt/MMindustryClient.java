@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.util.Identifier;
 
@@ -31,13 +32,19 @@ public class MMindustryClient implements ClientModInitializer {
         // screen
         HandledScreens.register(MMindustry.CONVEYOR_BELT_SCREEN_HANDLER_TYPE, ConveyorBeltScreen::new);
 
+        // entity renderer
         /*
          * Registers our Cube Entity's renderer, which provides a model and texture for the entity.
          *
          * Entity Renderers can also manipulate the model before it renders based on entity context (EndermanEntityRenderer#render).
          */
-        EntityRendererRegistry.INSTANCE.register(MDTEntitys.TURRET_DUO_ENTITY_TYPE, (context) -> {
+        EntityRendererRegistry.INSTANCE.register(MDTEntitys.TURRET_DUO_ENTITY, (context) -> {
             return new DuoTurretEntityRenderer(context);
+        });
+
+        EntityRendererRegistry.INSTANCE.register(MDTEntitys.BULLET_ENTITY, (context) -> {
+//            return new ProjectileEntityRenderer<BulletEntity>(context);
+            return new FlyingItemEntityRenderer(context);
         });
 
         EntityModelLayerRegistry.registerModelLayer(MODEL_CUBE_LAYER, DuoTurretEntityModel::createBodyLayer);

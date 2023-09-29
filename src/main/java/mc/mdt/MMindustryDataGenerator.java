@@ -1,6 +1,7 @@
 package mc.mdt;
 
 import mc.mdt.common.init.MDTBlocks;
+import mc.mdt.common.init.MDTItems;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -52,6 +53,7 @@ public class MMindustryDataGenerator implements DataGeneratorEntrypoint {
 		@Override
 		public void generateItemModels(ItemModelGenerator itemModelGenerator) {
 			itemModelGenerator.register(MDTBlocks.WOOD_CONVEYOR_BELT_BLOCK.asItem(), Models.GENERATED);
+			itemModelGenerator.register(MDTItems.BULLET, Models.GENERATED);
 		}
 	}
 

@@ -37,7 +37,7 @@ public class DuoTurretBlcok extends BlockWithEntity implements BlockLivingEntity
 
     @Override
     public @Nullable LivingEntity createBlockLivingEntity(BlockPos pos, World world) {
-        return new DuoTurretEntity(MDTEntitys.TURRET_DUO_ENTITY_TYPE, world);
+        return new DuoTurretEntity(MDTEntitys.TURRET_DUO_ENTITY, world);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class DuoTurretBlcok extends BlockWithEntity implements BlockLivingEntity
             MMindustry.LOGGER.info("start spawn");
 //        this.createBlockLivingEntity(pos, world).refreshPositionAndAngles(pos, 0, 0);
             BlockPos entityPos = pos.up();
-            LivingEntity livingEntity = MDTEntitys.TURRET_DUO_ENTITY_TYPE.create((ServerWorld) world, null, null, entityPos, SpawnReason.SPAWN_EGG, false, false);
+            LivingEntity livingEntity = MDTEntitys.TURRET_DUO_ENTITY.create((ServerWorld) world, null, null, entityPos, SpawnReason.SPAWN_EGG, false, false);
             world.spawnEntity(livingEntity);
             MMindustry.LOGGER.info("spawned");
         }

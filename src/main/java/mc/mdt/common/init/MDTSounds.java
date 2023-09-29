@@ -9,6 +9,7 @@ import net.minecraft.util.Identifier;
 public class MDTSounds implements AutoRegistryContainer<SoundEvent> {
 
     public static SoundEvent SHOOT = SoundEvent.of(new Identifier("mmindustry:shoot"));
+    public static SoundEvent BOOM = SoundEvent.of(new Identifier("mmindustry:boom"));
 
     @Override
     public Registry<SoundEvent> getRegistry() {

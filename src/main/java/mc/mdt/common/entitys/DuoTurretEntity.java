@@ -8,7 +8,6 @@ import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -20,7 +19,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldEvents;
 
 import java.util.EnumSet;
 
@@ -32,7 +30,7 @@ public class DuoTurretEntity extends TurretEntity {
     private int fireballStrength = 1;
 
     public DuoTurretEntity(EntityType<? extends MobEntity> entityType, World world) {
-        super(MDTEntitys.TURRET_DUO_ENTITY_TYPE, world);
+        super(MDTEntitys.TURRET_DUO_ENTITY, world);
     }
 
     @Override
@@ -51,20 +49,20 @@ public class DuoTurretEntity extends TurretEntity {
         return SoundCategory.HOSTILE;
     }
 
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return MDTSounds.SHOOT;
-    }
+//    @Override
+//    protected SoundEvent getAmbientSound() {
+//        return MDTSounds.SHOOT;
+//    }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return MDTSounds.SHOOT;
+        return MDTSounds.BOOM;
     }
 
-    @Override
-    protected SoundEvent getHurtSound(DamageSource source) {
-        return MDTSounds.SHOOT;
-    }
+//    @Override
+//    protected SoundEvent getHurtSound(DamageSource source) {
+//        return MDTSounds.SHOOT;
+//    }
 
     @Override
     protected float getSoundVolume() {
@@ -161,7 +159,7 @@ public class DuoTurretEntity extends TurretEntity {
                 World world = this.duoTurret.getWorld();
                 ++this.cooldown;
                 if (this.cooldown == 10 && !this.duoTurret.isSilent()) {
-                    world.syncWorldEvent(null, WorldEvents.GHAST_WARNS, this.duoTurret.getBlockPos(), 0);
+//                    world.syncWorldEvent(null, WorldEvents.GHAST_WARNS, this.duoTurret.getBlockPos(), 0);
                 }
                 if (this.cooldown == 20) {
                     double e = 4.0;
@@ -170,7 +168,75 @@ public class DuoTurretEntity extends TurretEntity {
                     double g = livingEntity.getBodyY(0.5) - (0.5 + this.duoTurret.getBodyY(0.5));
                     double h = livingEntity.getZ() - (this.duoTurret.getZ() + vec3d.z * 4.0);
                     if (!this.duoTurret.isSilent()) {
-                        world.syncWorldEvent(null, WorldEvents.GHAST_SHOOTS, this.duoTurret.getBlockPos(), 0);
+                        world.playSound(null, this.duoTurret.getBlockPos(), MDTSounds.SHOOT, SoundCategory.HOSTILE);
+//                        world.syncWorldEvent(null, WorldEvents.GHAST_SHOOTS, this.duoTurret.getBlockPos(), 0);
+                    }
+//                    FireballEntity fireballEntity = new FireballEntity(world, (LivingEntity) this.duoTurret, f, g, h, this.duoTurret.getFireballStrength());
+//                    fireballEntity.setPosition(this.duoTurret.getX() + vec3d.x * 4.0, this.duoTurret.getBodyY(0.5) + 0.5, fireballEntity.getZ() + vec3d.z * 4.0);
+//                    world.spawnEntity(fireballEntity);
+                    BulletEntity bulletEntity = new BulletEntity(world, (LivingEntity) this.duoTurret, f, g, h);
+                    bulletEntity.setPosition(this.duoTurret.getX() + vec3d.x * 4.0, this.duoTurret.getBodyY(0.5) + 0.5, bulletEntity.getZ() + vec3d.z * 4.0);
+                    world.spawnEntity(bulletEntity);
+                    this.cooldown = -40;
+                }
+            } else if (this.cooldown > 0) {
+                --this.cooldown;
+            }
+//            this.duoTurret.setShooting(this.cooldown > 10);
+        }
+    }
+
+    static class ShootBulletGoal
+            extends Goal {
+        private final DuoTurretEntity duoTurret;
+        public int cooldown;
+
+        public ShootBulletGoal(DuoTurretEntity duoTurret) {
+            this.duoTurret = duoTurret;
+        }
+
+        @Override
+        public boolean canStart() {
+            return this.duoTurret.getTarget() != null;
+        }
+
+        @Override
+        public void start() {
+            this.cooldown = 0;
+        }
+
+        @Override
+        public void stop() {
+//            this.duoTurret.setShooting(false);
+        }
+
+        @Override
+        public boolean shouldRunEveryTick() {
+            return true;
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity livingEntity = this.duoTurret.getTarget();
+            if (livingEntity == null) {
+                return;
+            }
+            double d = 64.0;
+            if (livingEntity.squaredDistanceTo(this.duoTurret) < 4096.0 && this.duoTurret.canSee(livingEntity)) {
+                World world = this.duoTurret.getWorld();
+                ++this.cooldown;
+                if (this.cooldown == 10 && !this.duoTurret.isSilent()) {
+//                    world.syncWorldEvent(null, WorldEvents.GHAST_WARNS, this.duoTurret.getBlockPos(), 0);
+                }
+                if (this.cooldown == 20) {
+                    double e = 4.0;
+                    Vec3d vec3d = this.duoTurret.getRotationVec(1.0f);
+                    double f = livingEntity.getX() - (this.duoTurret.getX() + vec3d.x * 4.0);
+                    double g = livingEntity.getBodyY(0.5) - (0.5 + this.duoTurret.getBodyY(0.5));
+                    double h = livingEntity.getZ() - (this.duoTurret.getZ() + vec3d.z * 4.0);
+                    if (!this.duoTurret.isSilent()) {
+                        world.playSound(null, this.duoTurret.getBlockPos(), MDTSounds.SHOOT, SoundCategory.HOSTILE);
+//                        world.syncWorldEvent(null, WorldEvents.GHAST_SHOOTS, this.duoTurret.getBlockPos(), 0);
                     }
                     FireballEntity fireballEntity = new FireballEntity(world, (LivingEntity) this.duoTurret, f, g, h, this.duoTurret.getFireballStrength());
                     fireballEntity.setPosition(this.duoTurret.getX() + vec3d.x * 4.0, this.duoTurret.getBodyY(0.5) + 0.5, fireballEntity.getZ() + vec3d.z * 4.0);

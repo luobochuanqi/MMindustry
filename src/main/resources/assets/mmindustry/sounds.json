@@ -4,5 +4,11 @@
     "sounds": [
       "mmindustry:shoot"
     ]
+  },
+  "boom": {
+    "subtitle": "sounds.mmindustry.boom",
+    "sounds": [
+      "mmindustry:boom"
+    ]
   }
 }
