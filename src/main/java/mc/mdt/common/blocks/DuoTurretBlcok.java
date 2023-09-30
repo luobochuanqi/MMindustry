@@ -44,12 +44,10 @@ public class DuoTurretBlcok extends BlockWithEntity implements BlockLivingEntity
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
         if (!world.isClient) {
-            MMindustry.LOGGER.info("start spawn");
 //        this.createBlockLivingEntity(pos, world).refreshPositionAndAngles(pos, 0, 0);
             BlockPos entityPos = pos.up();
             LivingEntity livingEntity = MDTEntitys.TURRET_DUO_ENTITY.create((ServerWorld) world, null, null, entityPos, SpawnReason.SPAWN_EGG, false, false);
             world.spawnEntity(livingEntity);
-            MMindustry.LOGGER.info("spawned");
         }
     }
 
