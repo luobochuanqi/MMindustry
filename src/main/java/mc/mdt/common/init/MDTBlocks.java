@@ -1,6 +1,7 @@
 package mc.mdt.common.init;
 
 import io.wispforest.owo.registration.reflect.BlockRegistryContainer;
+import mc.mdt.common.blocks.TurretDuoBlock;
 import mc.mdt.common.blocks.WoodConveyorBeltBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -13,6 +14,9 @@ import net.minecraft.item.Item;
 public class MDTBlocks implements BlockRegistryContainer {
     public static WoodConveyorBeltBlock WOOD_CONVEYOR_BELT_BLOCK =
             new WoodConveyorBeltBlock(FabricBlockSettings.create().strength(0.8f));
+
+    public static TurretDuoBlock TURRET_DUO_BLOCK =
+            new TurretDuoBlock(FabricBlockSettings.create().strength(0.8f));
 
     @Override
     public BlockItem createBlockItem(Block block, String identifier) {

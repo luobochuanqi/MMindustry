@@ -4,6 +4,7 @@ import io.wispforest.owo.registration.reflect.FieldRegistrationHandler;
 import mc.mdt.common.blockentity.DuoTurretBlockEntity;
 import mc.mdt.common.blocks.DuoTurretBlcok;
 import mc.mdt.common.entitys.DuoTurretEntity;
+import mc.mdt.common.entitys.TurretDuoEntity;
 import mc.mdt.common.init.*;
 import mc.mdt.common.screenHandler.ConveyorBeltScreenHandler;
 import net.fabricmc.api.ModInitializer;
@@ -107,9 +108,10 @@ public class MMindustry implements ModInitializer {
             content.add(CUSTOM_ITEM);
             content.add(MDTBlocks.WOOD_CONVEYOR_BELT_BLOCK.asItem());
             content.add(DUO_TURRET_BLOCK_ITEM);
+            content.add(MDTBlocks.TURRET_DUO_BLOCK.asItem());
         });
 
-
         FabricDefaultAttributeRegistry.register(MDTEntitys.TURRET_DUO_ENTITY, DuoTurretEntity.createMobAttributes());
+        FabricDefaultAttributeRegistry.register(MDTEntitys.TURRET_DUO_ENTITY_ONE, TurretDuoEntity.createMobAttributes());
     }
 }

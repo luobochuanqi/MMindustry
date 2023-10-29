@@ -1,6 +1,5 @@
 package mc.mdt.common.entitys;
 
-import mc.mdt.MMindustry;
 import mc.mdt.common.init.MDTEntitys;
 import mc.mdt.common.init.MDTSounds;
 import net.minecraft.entity.EntityType;
@@ -12,11 +11,9 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.BatEntity;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -29,7 +26,7 @@ public class DuoTurretEntity extends TurretEntity {
     private static final TrackedData<Boolean> SHOOTING = DataTracker.registerData(DuoTurretEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private int fireballStrength = 1;
 
-    public DuoTurretEntity(EntityType<? extends MobEntity> entityType, World world) {
+    public DuoTurretEntity(EntityType<?> entityType, World world) {
         super(MDTEntitys.TURRET_DUO_ENTITY, world);
     }
 
@@ -37,7 +34,7 @@ public class DuoTurretEntity extends TurretEntity {
     protected void initGoals() {
         this.goalSelector.add(7, new LookAtTargetGoal(this));
         this.goalSelector.add(7, new ShootFireballGoal(this));
-        this.targetSelector.add(1, new ActiveTargetGoal<BatEntity>(this, BatEntity.class, 1, false, false, entity -> entity.squaredDistanceTo(new Vec3d(this.getX(), this.getY(), this.getZ())) <= 400.0));
+        this.targetSelector.add(1, new ActiveTargetGoal<HostileEntity>(this, HostileEntity.class, 1, false, false, entity -> entity.squaredDistanceTo(new Vec3d(this.getX(), this.getY(), this.getZ())) <= 400.0));
     }
 
     public static DefaultAttributeContainer.Builder createMobAttributes() {
@@ -100,8 +97,12 @@ public class DuoTurretEntity extends TurretEntity {
                 if (livingEntity.squaredDistanceTo(this.duoTurret) < 4096.0) {
                     double e = livingEntity.getX() - this.duoTurret.getX();
                     double f = livingEntity.getZ() - this.duoTurret.getZ();
-                    this.duoTurret.setYaw(-((float) MathHelper.atan2(e, f)) * 57.295776f);
-                    this.duoTurret.bodyYaw = this.duoTurret.getYaw();
+                    this.duoTurret.getLookControl().lookAt(livingEntity);
+//                    this.duoTurret.setYaw(-((float) MathHelper.atan2(e, f)) * 57.295776f + 90.0f);
+//                    this.duoTurret.bodyYaw = this.duoTurret.getYaw();
+//                    this.duoTurret.headYaw = -((float) MathHelper.atan2(e, f)) * 57.295776f;
+//                    this.duoTurret.headYaw = this.duoTurret.getYaw();
+//                    this.duoTurret.prevYaw = this.duoTurret.getYaw();
                 }
             }
         }
@@ -150,7 +151,7 @@ public class DuoTurretEntity extends TurretEntity {
 
         @Override
         public void tick() {
-            MMindustry.LOGGER.info(String.valueOf(cooldown));
+//            MMindustry.LOGGER.info(String.valueOf(cooldown));
             LivingEntity livingEntity = this.duoTurret.getTarget();
             if (livingEntity == null) {
                 return;
@@ -160,17 +161,25 @@ public class DuoTurretEntity extends TurretEntity {
                 World world = this.duoTurret.getWorld();
                 ++this.cooldown;
                 if (this.cooldown == 13) {
-                    double e = 4.0;
-                    Vec3d vec3d = this.duoTurret.getRotationVec(1.0f);
-                    double f = livingEntity.getX() - (this.duoTurret.getX() + vec3d.x * 0.5);
-                    double g = livingEntity.getBodyY(0.5) - (this.duoTurret.getBodyY(0.5));
-                    double h = livingEntity.getZ() - (this.duoTurret.getZ() + vec3d.z * 0.5);
-                    if (!this.duoTurret.isSilent()) {
-                        world.playSound(null, this.duoTurret.getBlockPos(), MDTSounds.SHOOT, SoundCategory.HOSTILE);
+                    // Determine whether the current direction is towards the target.
+//                    LivingEntity livingEntity1 = this.duoTurret.getTarget();
+//                    double e1 = livingEntity1.getX() - this.duoTurret.getX();
+//                    double f1 = livingEntity1.getZ() - this.duoTurret.getZ();
+//                    float targetYaw = -((float) MathHelper.atan2(e1, f1)) * 57.295776f;
+//                    if (this.duoTurret.getYaw() == targetYaw)
+                    {
+                        double e = 4.0;
+                        Vec3d vec3d = this.duoTurret.getRotationVec(1.0f);
+                        double f = livingEntity.getX() - (this.duoTurret.getX() + vec3d.x * 0.5);
+                        double g = livingEntity.getBodyY(0.7) - (this.duoTurret.getBodyY(0.5));
+                        double h = livingEntity.getZ() - (this.duoTurret.getZ() + vec3d.z * 0.5);
+                        if (!this.duoTurret.isSilent()) {
+                            world.playSound(null, this.duoTurret.getBlockPos(), MDTSounds.SHOOT, SoundCategory.HOSTILE);
+                        }
+                        BulletEntity bulletEntity1 = new BulletEntity(world, (LivingEntity) this.duoTurret, f, g, h);
+                        bulletEntity1.setPosition(this.duoTurret.getX() + vec3d.x * 0.4, this.duoTurret.getBodyY(0.2), this.duoTurret.getZ() + vec3d.z * 0.4);
+                        world.spawnEntity(bulletEntity1);
                     }
-                    BulletEntity bulletEntity1 = new BulletEntity(world, (LivingEntity) this.duoTurret, f, g, h);
-                    bulletEntity1.setPosition(this.duoTurret.getX() + vec3d.x * 0.4, this.duoTurret.getBodyY(0.2), this.duoTurret.getZ() + vec3d.z * 0.4);
-                    world.spawnEntity(bulletEntity1);
                     this.cooldown = 0;
                 }
             } else if (this.cooldown > 0) {

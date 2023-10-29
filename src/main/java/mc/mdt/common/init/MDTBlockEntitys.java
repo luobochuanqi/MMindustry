@@ -1,6 +1,7 @@
 package mc.mdt.common.init;
 
 import io.wispforest.owo.registration.reflect.BlockEntityRegistryContainer;
+import mc.mdt.common.blockentity.TurretDuoBlockEntity;
 import mc.mdt.common.blockentity.WoodConveyorBeltBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;
@@ -13,5 +14,12 @@ public class MDTBlockEntitys implements BlockEntityRegistryContainer {
             FabricBlockEntityTypeBuilder.create(
                             WoodConveyorBeltBlockEntity::new,
                             MDTBlocks.WOOD_CONVEYOR_BELT_BLOCK)
+                    .build();
+
+
+    public static final BlockEntityType<TurretDuoBlockEntity> TURRET_DUO_BLOCK_ENTITY =
+            FabricBlockEntityTypeBuilder.create(
+                            TurretDuoBlockEntity::new,
+                            MDTBlocks.TURRET_DUO_BLOCK)
                     .build();
 }

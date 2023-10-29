@@ -2,9 +2,7 @@ package mc.mdt.common.blocks;
 
 import mc.mdt.MMindustry;
 import mc.mdt.common.blockentity.DuoTurretBlockEntity;
-import mc.mdt.common.entitys.DuoTurretEntity;
 import mc.mdt.common.init.MDTEntitys;
-import mc.mdt.common.util.BlockLivingEntityProvider;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -19,7 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class DuoTurretBlcok extends BlockWithEntity implements BlockLivingEntityProvider {
+public class DuoTurretBlcok extends BlockWithEntity {
     public DuoTurretBlcok(Settings settings) {
         super(settings);
     }
@@ -33,11 +31,6 @@ public class DuoTurretBlcok extends BlockWithEntity implements BlockLivingEntity
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new DuoTurretBlockEntity(pos, state);
-    }
-
-    @Override
-    public @Nullable LivingEntity createBlockLivingEntity(BlockPos pos, World world) {
-        return new DuoTurretEntity(MDTEntitys.TURRET_DUO_ENTITY, world);
     }
 
     @Override
